@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="keywords" content="#">
+	<meta name="description" content="#">
+	<title>Prixto | Signup</title>
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="#">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="#">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="#">
+	<link rel="apple-touch-icon-precomposed" href="#">
+	<link rel="shortcut icon" href="#">
+	<!-- Bootstrap -->
+	<link href="{% static 'web_01/css/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- Fontawesome -->
+	<link href="{% static 'web_01/css/font-awesome.css' %}" rel="stylesheet">
+	<!-- Slick Slider -->
+	<link href="{% static 'web_01/css/slick.css' %}" rel="stylesheet">
+	<!-- Custom Stylesheet -->
+	<link href="{% static 'web_01/css/style.css' %}" rel="stylesheet">
+	<!-- Custom Responsive -->
+	<link href="{% static 'web_01/css/responsive.css' %}" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+	<!-- place -->
+</head>
+<body>
+	<div class="loader">
+		<div class="loader-inner"></div>
+	</div>
+	<section class="login-area">
+		<div class="row m-0">
+			<div class="col-lg-6 col-md-12 p-0">
+				<div class="login-content">
+					<div class="d-table">
+						<div class="d-table-cell">
+							<div class="login-form">
+								<div class="logo">
+									<!-- Logo container-->
+									<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
+									</div>
+								</div>
+								<h3>به سایت ما خوش آمدید</h3>
+								<p>قبلا ثبت نام کرده اید؟<a href="/login/">ورود</a>
+								</p>
+								<form method="POST">{% csrf_token %}
+									<div class="row form-group">
+										<div class="col-lg-6 col-md-6 form-group">
+											{% if signup_log.last_name_errors|length is 0 %}
+												{% if signup_log.prev_last_name == default_if_none or signup_log.prev_last_name == "" %}
+													<input dir="rtl" type="last-name" name="last-name" placeholder="نام خانوادگی" class="form-control">
+												{% else %}
+													<input dir="rtl" type="last-name" name="last-name" value={{ signup_log.prev_last_name }} class="form-control">
+												{% endif %}
+											{% else %}
+												<input dir="rtl" type="last-name" name="last-name" class="form-control-error">
+												<ul>
+													{% for last_name_error in signup_log.last_name_errors %}
+														<li class="font-weight-bold text-red text-right"> <span>{{ last_name_error }}</span>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+										<div class="col-lg-6 col-md-6 form-group">
+											{% if signup_log.first_name_errors|length is 0 %}
+												{% if signup_log.prev_first_name == default_if_none or signup_log.prev_first_name == "" %}
+													<input dir="rtl" type="first-name" name="first-name" placeholder="نام" class="form-control">
+												{% else %}
+													<input dir="rtl" type="first-name" name="first-name" value={{ signup_log.prev_first_name }} class="form-control">
+												{% endif %}
+											{% else %}
+												<input dir="rtl" type="first-name" name="first-name" class="form-control-error">
+												<ul>
+													{% for first_name_error in signup_log.first_name_errors %}
+														<li class="font-weight-bold text-red text-right"> <span>{{ first_name_error }}</span>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+									</div>
+									<div class="form-control-range">
+										<div class="form-group">
+											{% if signup_log.email_errors|length is 0 %}
+												{% if signup_log.prev_email == default_if_none or signup_log.prev_email == "" %}
+													<input dir="rtl" type="text" name="email" placeholder="ادرس ایمیل" class="form-control">
+												{% else %}
+													<input dir="rtl" type="text" name="email" value={{ signup_log.prev_email }} class="form-control">
+												{% endif %}
+											{% else %}
+												{% if signup_log.prev_email == default_if_none or signup_log.prev_email == "" %}
+													<input dir="rtl" type="text" name="email" class="form-control-error">
+												{% else %}
+													<input dir="rtl" type="text" name="email" value={{ signup_log.prev_email }} class="form-control-error">
+												{% endif %}
+												<ul>
+													{% for email_error in signup_log.email_errors %}
+														<li class="font-weight-bold text-red text-right"> <span>{{ email_error }}</span>
+														{% if email_error == "آیا شما قبلا با ابن ایمیل حساب باز کرده اید ؟ " %}
+															<a href="/login/"> ورود</a>
+														{% endif %}
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+										<div class="form-group">
+											{% if signup_log.username_errors|length is 0 %}
+												<input dir="rtl" type="text" name="username" placeholder="نام کاربری" class="form-control">
+											{% else %}
+												<input dir="rtl" type="text" name="username" class="form-control-error">
+												<ul>
+													{% for username_error in signup_log.username_errors %}
+														<li class="font-weight-bold text-red text-right"> <span>{{ username_error }}</span>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="form-group">
+											{% if signup_log.password_errors|length is 0 %}
+												{% if signup_log.prev_password is default_if_none or signup_log.prev_password == "" %}
+													<input dir="rtl" type="password" name="password" placeholder="رمز عبور" class="form-control">
+												{% else %}
+													<input dir="rtl" type="password" name="password" value={{ signup_log.prev_password }} class="form-control">
+												{% endif %}
+											{% else %}
+												<input dir="rtl" type="password" name="password" class="form-control-error">
+												<ul>
+													{% for password_error in signup_log.password_errors %}
+														<li class="font-weight-bold text-red text-right"> <span>{{ password_error }}</span>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+										<div class="form-group">
+											{% if signup_log.re_password_errors|length is 0 %}
+												{% if signup_log.prev_re_password is default_if_none or signup_log.prev_re_password == "" %}
+													<input dir="rtl" type="password" name="re-password" placeholder="تکرار رمز عبور" class="form-control">
+												{% else %}
+													<input dir="rtl" type="password" name="re-password" value={{ signup_log.prev_re_password }} class="form-control">
+												{% endif %}
+											{% else %}
+												<input dir="rtl" type="password" name="re-password" class="form-control-error">
+												<ul>
+													{% for re_password_error in signup_log.re_password_errors %}
+														<li class="font-weight-bold text-red text-right"> <span>{{ re_password_error }}</span>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+									</div>
+									<button type="submit" class="btn-block form-group px-btn px-btn-primary">ثبت نام</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-12 p-0">
+				<div class="login-image">
+					<img src="https://via.placeholder.com/1200x1400" alt="image">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--======================================
+            END / FOOTER SECTION
+  ======================================-->
+	<!-- Model -->
+	<div id="video-overlay" class="video-overlay"> <a class="video-overlay-close">&times;</a>
+	</div>
+	<!-- /END/Model -->
+	<!-- Place all Scripts Here -->
+	<!-- jQuery -->
+	<script src="{% static 'web_01/js/jquery.min.js' %}"></script>
+	<!-- Popper -->
+	<script src="{% static 'web_01/js/popper.min.js' %}"></script>
+	<!-- Bootstrap -->
+	<script src="{% static 'web_01/js/bootstrap.min.js' %}"></script>
+	<!-- Isotope Gallery -->
+	<script src="{% static 'web_01/js/isotope.min.js' %}"></script>
+	<!-- Nice-Select JS -->
+	<script src="{% static 'web_01/js/jquery.nice-select.min.js' %}"></script>
+	<!-- Waypoints JS -->
+	<script src="{% static 'web_01/js/jquery.waypoints.min.js' %}"></script>
+	<!-- Counter Jquery -->
+	<script src="{% static 'web_01/js/jquery.counterup.js' %}"></script>
+	<!-- Slick Slider -->
+	<script src="{% static 'web_01/js/slick.min.js' %}"></script>
+	<!-- sticky sidebar -->
+	<script src="{% static 'web_01/js/sticksy.js' %}"></script>
+	<!-- Theme Functions Js -->
+	<script src="{% static 'web_01/js/theme-functions.js' %}"></script>
+	<!-- /Place all Scripts Here -->
+</body>
+</html>

@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="keywords" content="#">
+	<meta name="description" content="#">
+	<title>Prixto | Login</title>
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="#">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="#">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="#">
+	<link rel="apple-touch-icon-precomposed" href="#">
+	<link rel="shortcut icon" href="#">
+	<!-- Bootstrap -->
+	<link href="{% static 'web_01/css/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- Fontawesome -->
+	<link href="{% static 'web_01/css/font-awesome.css' %}" rel="stylesheet">
+	<!-- Slick Slider -->
+	<link href="{% static 'web_01/css/slick.css' %}" rel="stylesheet">
+	<!-- Custom Stylesheet -->
+	<link href="{% static 'web_01/css/style.css' %}" rel="stylesheet">
+	<!-- Custom Responsive -->
+	<link href="{% static 'web_01/css/responsive.css' %}" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap"
+	      rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,500&display=swap"
+	      rel="stylesheet">
+	<!-- place -->
+</head>
+<body>
+<div class="loader">
+	<div class="loader-inner"></div>
+</div>
+<section class="login-area">
+	<div class="row m-0">
+		<div class="col-lg-6 col-md-12 p-0">
+			<div class="login-content">
+				<div class="d-table">
+					<div class="d-table-cell">
+						<div class="login-form">
+							<div class="logo">
+								<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
+								</div>
+							</div>
+							<h3>دوباره خوش آمدید</h3>
+							<p>ثبت نام نکرده اید؟ <a href="/signup/">ثبت نام</a>
+							</p>
+							<form method="POST">
+								{% csrf_token %}
+								<div class="form-group">
+									{% if login_log.email_errors|length > 0 or login_log.username_errors|length > 0 %}
+										{% if login_log.prev_username_email is default_if_none or login_log.prev_username_email == '' %}
+											<input dir="rtl" type="username-email" name="username-email" class="form-control-error">
+										{% else %}
+											<input dir="rtl" type="username-email" name="username-email" value="{{ login_log.prev_username_email }}" class="form-control-error">
+										{% endif %}
+										<ul>
+											{% for email_error in login_log.email_errors %}
+												<li class="font-weight-bold text-red text-right"> <span>{{ email_error }}</span>
+												</li>
+											{% endfor %}
+											{% for username_error in login_log.username_errors %}
+												<li class="font-weight-bold text-red text-right"> <span>{{ username_error }}</span>
+												</li>
+											{% endfor %}
+										</ul>
+									{% else %}
+										{% if login_log.prev_username_email is default_if_none or login_log.prev_username_email == '' %}
+											<input dir="rtl" type="username-email" name="username-email" placeholder="ایمیل یا نام کاربری خود را وارد کنید" class="form-control">
+										{% else %}
+											<input dir="rtl" type="username-email" name="username-email" value="{{ login_log.prev_username_email }}" class="form-control">
+										{% endif %}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									{% if login_log.password_errors|length > 0 %}
+										<input dir="rtl" type="password" name="password" class="form-control-error">
+										<ul>
+											{% for password_error in login_log.password_errors %}
+												<li class="font-weight-bold text-red text-right"> <span>{{ password_error }}</span>
+												</li>
+											{% endfor %}
+										</ul>
+									{% else %}
+										{% if login_log.prev_password is default_if_none or login_log.prev_password == '' %}
+											<input dir="rtl" type="password" name="password" placeholder="رمز عبور " class="form-control">
+										{% else %}
+											<input dir="rtl" type="password" name="password" value={{ login_log.prev_password }} class="form-control">
+										{% endif %}
+									{% endif %}
+								</div>
+								<button type="submit" class="btn-block px-btn px-btn-primary">ورود</button>
+								<div class="forgot-password"><a href="#">رمز عبور را فراموش کرده اید؟</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-12 p-0">
+			<div class="login-image">
+				<img src="https://via.placeholder.com/1200x1400" alt="image">
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		END / FOOTER SECTION
+======================================-->
+<!-- Model -->
+<div id="video-overlay" class="video-overlay"><a class="video-overlay-close">&times;</a>
+</div>
+<!-- /END/Model -->
+<!-- Place all Scripts Here -->
+<!-- jQuery -->
+<script src="{% static 'web_01/js/jquery.min.js' %}"></script>
+<!-- Popper -->
+<script src="{% static 'web_01/js/popper.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'web_01/js/bootstrap.min.js' %}"></script>
+<!-- Isotope Gallery -->
+<script src="{% static 'web_01/js/isotope.min.js' %}"></script>
+<!-- Nice-Select JS -->
+<script src="{% static 'web_01/js/jquery.nice-select.min.js' %}"></script>
+<!-- Waypoints JS -->
+<script src="{% static 'web_01/js/jquery.waypoints.min.js' %}"></script>
+<!-- Counter Jquery -->
+<script src="{% static 'web_01/js/jquery.counterup.js' %}"></script>
+<!-- Slick Slider -->
+<script src="{% static 'web_01/js/slick.min.js' %}"></script>
+<!-- sticky sidebar -->
+<script src="{% static 'web_01/js/sticksy.js' %}"></script>
+<!-- Theme Functions Js -->
+<script src="{% static 'web_01/js/theme-functions.js' %}"></script>
+<!-- /Place all Scripts Here -->
+</body>
+</html>
