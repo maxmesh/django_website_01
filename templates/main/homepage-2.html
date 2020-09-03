@@ -59,7 +59,7 @@
 				<div class="menu-item">
 					<!-- Mobile menu toggle-->
 					<a class="navbar-toggle">
-						<div class="lines"> <span></span>
+						<div class="lines"><span></span>
 							<span></span>
 							<span></span>
 						</div>
@@ -70,7 +70,10 @@
 			<div id="navigation" class="active">
 				<!-- Navigation Menu-->
 				<ul style="text-align: right;" class="navigation-menu">
-					<li class="has-submenu"> <a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
+					{% if user.is_staff %}
+						<li class="last-elements"> <a href="/control_panel/">کنترل پنل</a>
+					{% endif %}
+					<li class="has-submenu"><a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
 						<ul class="submenu first-level">
 							<li><a href="/pricing/">قیمت ها</a>
 							</li>
@@ -82,7 +85,8 @@
 								<li><a href="/signup/">ثبت نام</a>
 								</li>
 							{% endif %}
-							<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span class="submenu-arrow"></span>
+							<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span
+									class="submenu-arrow"></span>
 								<ul class="submenu level-second">
 									<li><a href="/blog-grid/">شبکه وبلاگ</a>
 									</li>
@@ -94,7 +98,8 @@
 									</li>
 								</ul>
 							</li>
-							<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span class="submenu-arrow"></span>
+							<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span
+									class="submenu-arrow"></span>
 								<ul class="submenu">
 									<li><a href="/portfolio-grid/">شبکه پروژه ها</a>
 									</li>
@@ -110,13 +115,13 @@
 							{% endif %}
 						</ul>
 					</li>
-					<li class="last-elements"> <a href="/contact-us/">تماس با ما</a>
+					<li class="last-elements"><a href="/contact-us/">تماس با ما</a>
 					</li>
 					<li><a href="/our-services/">خدمات ما</a>
 					</li>
 					<li><a href="/about-us/">درباره ما</a>
 					</li>
-					<li class="has-submenu"> <a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
+					<li class="has-submenu"><a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
 						<ul class="submenu">
 							<li><a href="/">صفحه نخست 1</a>
 							</li>

@@ -46,15 +46,20 @@
 			<!-- Logo container-->
 			<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
 			</div>
-			<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
-			</div>
+			{% if user.is_authenticated %}
+				<div class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
+				</div>
+			{% else %}
+				<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
+				</div>
+			{% endif %}
 			<!--end login button-->
 			<!-- End Logo container-->
 			<div class="menu-extras">
 				<div class="menu-item">
 					<!-- Mobile menu toggle-->
 					<a class="navbar-toggle">
-						<div class="lines"> <span></span>
+						<div class="lines"><span></span>
 							<span></span>
 							<span></span>
 						</div>
@@ -64,48 +69,59 @@
 			</div>
 			<div id="navigation" class="active">
 				<!-- Navigation Menu-->
-				<ul class="navigation-menu">
-					<li class="has-submenu"> <a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
+				<ul style="text-align: right;" class="navigation-menu">
+					{% if user.is_staff %}
+						<li class="last-elements"> <a href="/control_panel/">کنترل پنل</a>
+					{% endif %}
+					<li class="has-submenu"><a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
 						<ul class="submenu first-level">
 							<li><a href="/pricing/">قیمت ها</a>
 							</li>
 							<li><a href="/our-team/">گروه ما</a>
 							</li>
-							<li><a href="/login/">ورود</a>
-							</li>
-							<li><a href="/signup/">ثبت نام</a>
-							</li>
-							<li class="has-submenu"><a href="javascript:void(0)"> Blog </a><span class="submenu-arrow"></span>
+							{% if not user.is_authenticated %}
+								<li><a href="/login/">ورود</a>
+								</li>
+								<li><a href="/signup/">ثبت نام</a>
+								</li>
+							{% endif %}
+							<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span
+									class="submenu-arrow"></span>
 								<ul class="submenu level-second">
-									<li><a href="/blog-grid/">Blog Grid</a>
+									<li><a href="/blog-grid/">شبکه وبلاگ</a>
 									</li>
-									<li><a href="/blog-left-sidebar/">Blog Left Sidebar</a>
+									<li><a href="/blog-left-sidebar/">وبلاگ سمت چپ</a>
 									</li>
-									<li><a href="/blog-right-sidebar/">Blog Right Sidebar</a>
+									<li><a href="/blog-right-sidebar/">وبلاگ سمت راست نوار</a>
 									</li>
-									<li><a href="/blog-detail/">Blog Detail</a>
+									<li><a href="/blog-detail/">جزئیات وبلاگ</a>
 									</li>
 								</ul>
 							</li>
-							<li class="has-submenu"><a href="javascript:void(0)"> Projects</a><span class="submenu-arrow"></span>
+							<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span
+									class="submenu-arrow"></span>
 								<ul class="submenu">
-									<li><a href="/portfolio-grid/">Porjects Grid</a>
+									<li><a href="/portfolio-grid/">شبکه پروژه ها</a>
 									</li>
-									<li><a href="/portfolio-grid-gallery/">Porjects Gallery</a>
+									<li><a href="/portfolio-grid-gallery/">گالری پروژه ها</a>
 									</li>
-									<li><a href="/portfolio-details/">Porjects Details</a>
+									<li><a href="/portfolio-details/">جزئیات پروژه ها</a>
 									</li>
 								</ul>
 							</li>
+							{% if user.is_authenticated %}
+								<li><a href="/logout/">خروج</a>
+								</li>
+							{% endif %}
 						</ul>
 					</li>
-					<li class="last-elements"> <a href="/contact-us/">تماس با ما</a>
+					<li class="last-elements"><a href="/contact-us/">تماس با ما</a>
 					</li>
 					<li><a href="/our-services/">خدمات ما</a>
 					</li>
 					<li><a href="/about-us/">درباره ما</a>
 					</li>
-					<li class="has-submenu"> <a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
+					<li class="has-submenu"><a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
 						<ul class="submenu">
 							<li><a href="/">صفحه نخست 1</a>
 							</li>
