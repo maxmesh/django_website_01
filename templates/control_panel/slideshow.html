@@ -278,10 +278,8 @@
 											<form method="POST" enctype="multipart/form-data">
 												{% csrf_token %}
 												<button style="float: right;" class="btn btn-danger" type="submit"
-														value="{{ slide.object.id }}" name="remove-slide">Remove
-																										  This
-																										  Slide
-												</button>
+														value="{{ slide.object.id }}" name="remove-slide"><a
+														class="fa fa-minus"></a></button>
 											</form>
 										</div>
 									</div>
@@ -302,7 +300,7 @@
 											<input type="file" class="custom-file-input" id="inputGroupFile01"
 												   aria-describedby="inputGroupFileAddon01" name="slide-img">
 											<label class="custom-file-label"
-												   for="inputGroupFile01">{{ slide.object.slide_img.name }}</label>
+												   for="inputGroupFile01">Slide Image</label>
 										</div>
 									</div>
 									<div class="form-row">
@@ -325,13 +323,13 @@
 												{% if forloop.counter != 1 %}
 													<button class="btn btn-primary" type="submit"
 															value="{{ slide.object.id }}"
-															name="m-u"><a class="fa fa-angle-up"></a>
+															name="m-u"><a class="fa fa-arrow-up"></a>
 													</button>
 												{% endif %}
 												{% if forloop.counter != slideshow|length %}
 													<button class="btn btn-primary mt-1" type="submit"
 															value="{{ slide.object.id }}"
-															name="m-d"><a class="fa fa-angle-down"></a>
+															name="m-d"><a class="fa fa-arrow-down"></a>
 													</button>
 												{% endif %}
 											</div>

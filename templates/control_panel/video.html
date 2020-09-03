@@ -246,153 +246,82 @@
 											<form method="POST" enctype="multipart/form-data">
 												{% csrf_token %}
 												<button style="float: right;" class="btn btn-danger" type="submit"
-														value="{{ video.id }}" name="remove-video">Remove
-																								   This
-																								   Video
-												</button>
+														value="{{ video.id }}" name="remove-video"><a
+														class="fa fa-minus"></a></button>
 											</form>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="card-body">
-								<form method="POST">
+								<form method="POST" enctype="multipart/form-data">
 									{% csrf_token %}
-									{% if video.video_R_dir %}
-										<div class="form-row my-2">
-											<div class="col">
-												<div class="form-group"><label><strong>Video
-																					   Title</strong></label><input
-														class="form-control" type="text"
-														placeholder="{{ video.video_title }}"
-														name="video-title">
-												</div>
-												<div class="form-group"><label><strong>Video
-																					   Description</strong></label><textarea
-														class="form-control" rows="17"
-														placeholder="{{ video.video_description }}"
-														name="video-description"></textarea></div>
-												<div class="input-group mb-3">
-													<div class="input-group-prepend">
+									<div class="form-row my-2">
+										<div class="col-xl-6 col-lg-6 {% if not video.video_R_dir %} order-last {% endif %}">
+											<div class="form-group"><label><strong>Video
+																				   Title</strong></label><input
+													class="form-control" type="text"
+													placeholder="{{ video.video_title }}"
+													name="video-title">
+											</div>
+											<div class="form-group"><label><strong>Video
+																				   Description</strong></label><textarea
+													class="form-control" rows="17"
+													placeholder="{{ video.video_description }}"
+													name="video-description"></textarea></div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
 														<span class="input-group-text"
 															  id="basic-addon1">video url</span>
-													</div>
-													<input type="text" class="form-control"
-														   placeholder="{{ video.video_url }}"
-														   aria-label="Username" aria-describedby="basic-addon1"
-														   name="video-url">
 												</div>
+												<input type="text" class="form-control"
+													   placeholder="{{ video.video_url }}"
+													   aria-label="Username" aria-describedby="basic-addon1"
+													   name="video-url">
 											</div>
-											<div class="col">
-												<label class="text-gray-700"><strong>Video Display
-																					 Image</strong></label>
-												<img class="d-block w-100" src="{{ video.cover_img.url }}"
-													 alt="First slide">
-												<div class="input-group mt-2">
-													<div class="custom-file">
-														<input type="file" class="custom-file-input"
-															   id="inputGroupFile01"
-															   aria-describedby="inputGroupFileAddon01"
-															   name="cover-img">
-														<label class="custom-file-label"
-															   for="inputGroupFile01">{{ video.cover_img.name }}</label>
-													</div>
+										</div>
+										<div class="col-xl-6 col-lg-6">
+											<label class="text-gray-700"><strong>Video Display
+																				 Image</strong></label>
+											<img class="d-block w-100" src="{{ video.cover_img.url }}"
+												 alt="First slide">
+											<div class="input-group mt-2">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input"
+														   id="inputGroupFile01"
+														   aria-describedby="inputGroupFileAddon01"
+														   name="cover-img">
+													<label class="custom-file-label"
+														   for="inputGroupFile01">Cover Image</label>
 												</div>
 											</div>
 										</div>
-										<div class="form-row mt-5">
-											<div class="col">
-												<div class="form-group">
-													{% if forloop.counter != 1 %}
-														<button class="btn btn-primary" type="submit"
-																value="{{ video.id }}"
-																name="m-u"><a class="fa fa-angle-up"></a>
-														</button>
-													{% endif %}
-													{% if forloop.counter != videos|length %}
-														<button class="btn btn-primary mt-1" type="submit"
-																value="{{ video.id }}"
-																name="m-d"><a class="fa fa-angle-down"></a>
-														</button>
-													{% endif %}
-												</div>
-											</div>
-											<div class="col">
-												<div class="form-group">
-													<button style="float: right;" class="btn btn-primary"
-															value="{{ video.id }}" type="submit" name="save">Save
+									</div>
+									<div class="form-row mt-5">
+										<div class="col">
+											<div class="form-group">
+												{% if forloop.counter != 1 %}
+													<button class="btn btn-primary" type="submit"
+															value="{{ video.id }}"
+															name="m-u"><a class="fa fa-arrow-up"></a>
 													</button>
-												</div>
-											</div>
-										</div>
-									{% else %}
-										<div class="form-row my-2">
-											<div class="col">
-												<label class="text-gray-700"><strong>Video Display
-																					 Image</strong></label>
-												<img class="d-block w-100" src="{{ video.cover_img.url }}"
-													 alt="First slide">
-												<div class="input-group mt-2">
-													<div class="custom-file">
-														<input type="file" class="custom-file-input"
-															   id="inputGroupFile01"
-															   aria-describedby="inputGroupFileAddon01"
-															   name="cover-img">
-														<label class="custom-file-label"
-															   for="inputGroupFile01">{{ video.cover_img.name }}</label>
-													</div>
-												</div>
-											</div>
-											<div class="col">
-												<div class="form-group"><label><strong>Video
-																					   Title</strong></label><input
-														class="form-control" type="text"
-														placeholder="{{ video.video_title }}"
-														name="video-title">
-												</div>
-												<div class="form-group"><label><strong>Video
-																					   Description</strong></label><textarea
-														class="form-control" rows="17"
-														placeholder="{{ video.video_description }}"
-														name="video-description"></textarea></div>
-												<div class="input-group mb-3">
-													<div class="input-group-prepend">
-														<span class="input-group-text"
-															  id="basic-addon1">video url</span>
-													</div>
-													<input type="text" class="form-control"
-														   placeholder="{{ video.video_url }}"
-														   aria-label="Username" aria-describedby="basic-addon1"
-														   name="video-url">
-												</div>
-											</div>
-										</div>
-										<div class="form-row mt-5">
-											<div class="col">
-												<div class="form-group">
-													{% if forloop.counter != 1 %}
-														<button class="btn btn-primary" type="submit"
-																value="{{ video.id }}"
-																name="m-u"><a class="fa fa-angle-up"></a>
-														</button>
-													{% endif %}
-													{% if forloop.counter != videos|length %}
-														<button class="btn btn-primary mt-1" type="submit"
-																value="{{ video.id }}"
-																name="m-d"><a class="fa fa-angle-down"></a>
-														</button>
-													{% endif %}
-												</div>
-											</div>
-											<div class="col">
-												<div class="form-group">
-													<button style="float: right;" class="btn btn-primary"
-															value="{{ video.id }}" type="submit" name="save">Save
+												{% endif %}
+												{% if forloop.counter != videos|length %}
+													<button class="btn btn-primary mt-1" type="submit"
+															value="{{ video.id }}"
+															name="m-d"><a class="fa fa-arrow-down"></a>
 													</button>
-												</div>
+												{% endif %}
 											</div>
 										</div>
-									{% endif %}
+										<div class="col">
+											<div class="form-group">
+												<button style="float: right;" class="btn btn-primary"
+														value="{{ video.id }}" type="submit" name="save">Save
+												</button>
+											</div>
+										</div>
+									</div>
 								</form>
 							</div>
 						</div>
