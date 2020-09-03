@@ -1,4 +1,3 @@
-import os
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
@@ -14,7 +13,6 @@ def users(request):
 		return redirect('/')
 	messages=list()
 	users=User.objects.all()
-	# endregion
 	return render(request,'control_panel/users.html',{'users':users,'messages':messages})
 def change_user_data(request,id):
 	if not request.user.is_staff:
@@ -125,7 +123,6 @@ def create_new_user(request):
 				is_staff_status=True
 			if request.POST.get('is-superuser-status') is not None:
 				is_superuser_status=True
-			# region check user data
 			if first_name is None or first_name=='':
 				message={'type':'error','body':' First Name Field Is Empty.'}
 				messages.append(message)
@@ -193,38 +190,21 @@ def site_title_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
-	if len(site_title.objects.all())==0:
-		site_title.objects.create()
-	elif len(site_title.objects.all())>1:
-		for obj in site_title.objects.all():
-			if obj.id!=1:
-				if obj.title_icon.path.find('\\default.png')==-1 and obj.title_icon.path.find(
-						'/default.png')==-1:
-					if os.path.isfile(obj.title_icon.path):
-						os.remove(obj.title_icon.path)
-				obj.delete()
+	site_title.objects.control_number()
 	if request.method=="POST":
-		id=request.POST.get('save')
 		title=request.POST.get('title')
 		title_ico=request.FILES.get('title-ico')
-		site_title_obj=site_title.objects.filter(id=id).get()
 		if title!='':
-			site_title_obj.title=title
+			site_title.objects.change_title(title)
 			message={'type':'success','body':' Your Site Title Was Updated'}
 			messages.append(message)
 		if title_ico:
-			if site_title_obj.title_icon.path.find('\\default.png')==-1 and site_title_obj.title_icon.path.find(
-					'/default.png')==-1:
-				if os.path.isfile(site_title_obj.title_icon.path):
-					os.remove(site_title_obj.title_icon.path)
-			site_title_obj.title_icon=title_ico
+			site_title.objects.change_icon(title_ico)
 			message={'type':'success','body':' Your Site Title Icon Was Updated'}
 			messages.append(message)
 		if len(messages)<1:
 			message={'type':'info','body':' There Were No Changes To Save.'}
 			messages.append(message)
-		else:
-			site_title_obj.save()
 	return render(request,'control_panel/site-title.html',{'messages':messages,'site_title':site_title.objects.all()})
 def slideshow_(request):
 	if not request.user.is_staff:
@@ -328,37 +308,37 @@ def video_(request):
 			id=request.POST.get('r-l')
 			video.objects.flip(id)
 	return render(request,'control_panel/video.html',{'messages':messages,'videos':video.objects.all()})
-def our_services(request):
+def our_services_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	return render(request,'control_panel/our-services.html',{'messages':messages})
-def work_samples(request):
+def work_samples_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	return render(request,'control_panel/work-samples.html',{'messages':messages})
-def our_team(request):
+def our_team_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	return render(request,'control_panel/our-team.html',{'messages':messages})
-def our_customers(request):
+def our_customers_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	return render(request,'control_panel/our-customers.html',{'messages':messages})
-def footer(request):
+def footer_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	return render(request,'control_panel/footer.html',{'messages':messages})
-def pictures(request):
+def pictures_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	return render(request,'control_panel/pictures.html',{'messages':messages})
-def themes(request):
+def themes_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
