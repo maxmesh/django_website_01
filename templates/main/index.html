@@ -28,1101 +28,1132 @@
 	<!-- Custom Responsive -->
 	<link href="{% static 'web_01/css/responsive.css' %}" rel="stylesheet">
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap"
+		  rel="stylesheet">
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,500&display=swap"
+		  rel="stylesheet">
 	<!-- place -->
 </head>
 <body>
-	<div class="loader">
-		<div class="loader-inner"></div>
+<div class="loader">
+	<div class="loader-inner"></div>
+</div>
+<!--======================================
+	NAVIGATION AREA
+======================================-->
+<header id="topnav" class="defaultscroll sticky active">
+	<div class="container">
+		<!-- Logo container-->
+		<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
+		</div>
+		{% if user.is_authenticated %}
+			<div class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
+			</div>
+		{% else %}
+			<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
+			</div>
+		{% endif %}
+		<!--end login button-->
+		<!-- End Logo container-->
+		<div class="menu-extras">
+			<div class="menu-item">
+				<!-- Mobile menu toggle-->
+				<a class="navbar-toggle">
+					<div class="lines"><span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</a>
+				<!-- End mobile menu toggle-->
+			</div>
+		</div>
+		<div id="navigation" class="active">
+			<!-- Navigation Menu-->
+			<ul style="text-align: right;" class="navigation-menu">
+				{% if user.is_staff %}
+					<li class="last-elements"> <a href="/control_panel/">کنترل پنل</a>
+				{% endif %}
+				<li class="has-submenu"><a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
+					<ul class="submenu first-level">
+						<li><a href="/pricing/">قیمت ها</a>
+						</li>
+						<li><a href="/our-team/">گروه ما</a>
+						</li>
+						{% if not user.is_authenticated %}
+							<li><a href="/login/">ورود</a>
+							</li>
+							<li><a href="/signup/">ثبت نام</a>
+							</li>
+						{% endif %}
+						<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span
+								class="submenu-arrow"></span>
+							<ul class="submenu level-second">
+								<li><a href="/blog-grid/">شبکه وبلاگ</a>
+								</li>
+								<li><a href="/blog-left-sidebar/">وبلاگ سمت چپ</a>
+								</li>
+								<li><a href="/blog-right-sidebar/">وبلاگ سمت راست نوار</a>
+								</li>
+								<li><a href="/blog-detail/">جزئیات وبلاگ</a>
+								</li>
+							</ul>
+						</li>
+						<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span
+								class="submenu-arrow"></span>
+							<ul class="submenu">
+								<li><a href="/portfolio-grid/">شبکه پروژه ها</a>
+								</li>
+								<li><a href="/portfolio-grid-gallery/">گالری پروژه ها</a>
+								</li>
+								<li><a href="/portfolio-details/">جزئیات پروژه ها</a>
+								</li>
+							</ul>
+						</li>
+						{% if user.is_authenticated %}
+							<li><a href="/logout/">خروج</a>
+							</li>
+						{% endif %}
+					</ul>
+				</li>
+				<li class="last-elements"><a href="/contact-us/">تماس با ما</a>
+				</li>
+				<li><a href="/our-services/">خدمات ما</a>
+				</li>
+				<li><a href="/about-us/">درباره ما</a>
+				</li>
+				<li class="has-submenu"><a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
+					<ul class="submenu">
+						<li><a href="/">صفحه نخست 1</a>
+						</li>
+						<li><a href="/homepage2/">صفحه نخست 2</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--end navigation menu-->
+		</div>
+		<!--end navigation-->
 	</div>
-	<!--======================================
-        NAVIGATION AREA
-    ======================================-->
-	<header id="topnav" class="defaultscroll sticky active">
-		<div class="container">
-			<!-- Logo container-->
-			<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
-			</div>
-			{% if user.is_authenticated %}
-				<div class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
-				</div>
-			{% else %}
-				<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
-				</div>
-			{% endif %}
-			<!--end login button-->
-			<!-- End Logo container-->
-			<div class="menu-extras">
-				<div class="menu-item">
-					<!-- Mobile menu toggle-->
-					<a class="navbar-toggle">
-						<div class="lines"><span></span>
-							<span></span>
-							<span></span>
-						</div>
-					</a>
-					<!-- End mobile menu toggle-->
-				</div>
-			</div>
-			<div id="navigation" class="active">
-				<!-- Navigation Menu-->
-				<ul style="text-align: right;" class="navigation-menu">
-					{% if user.is_staff %}
-						<li class="last-elements"> <a href="/control_panel/">کنترل پنل</a>
-					{% endif %}
-					<li class="has-submenu"><a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
-						<ul class="submenu first-level">
-							<li><a href="/pricing/">قیمت ها</a>
-							</li>
-							<li><a href="/our-team/">گروه ما</a>
-							</li>
-							{% if not user.is_authenticated %}
-								<li><a href="/login/">ورود</a>
-								</li>
-								<li><a href="/signup/">ثبت نام</a>
-								</li>
-							{% endif %}
-							<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span
-									class="submenu-arrow"></span>
-								<ul class="submenu level-second">
-									<li><a href="/blog-grid/">شبکه وبلاگ</a>
-									</li>
-									<li><a href="/blog-left-sidebar/">وبلاگ سمت چپ</a>
-									</li>
-									<li><a href="/blog-right-sidebar/">وبلاگ سمت راست نوار</a>
-									</li>
-									<li><a href="/blog-detail/">جزئیات وبلاگ</a>
-									</li>
-								</ul>
-							</li>
-							<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span
-									class="submenu-arrow"></span>
-								<ul class="submenu">
-									<li><a href="/portfolio-grid/">شبکه پروژه ها</a>
-									</li>
-									<li><a href="/portfolio-grid-gallery/">گالری پروژه ها</a>
-									</li>
-									<li><a href="/portfolio-details/">جزئیات پروژه ها</a>
-									</li>
-								</ul>
-							</li>
-							{% if user.is_authenticated %}
-								<li><a href="/logout/">خروج</a>
-								</li>
-							{% endif %}
-						</ul>
-					</li>
-					<li class="last-elements"><a href="/contact-us/">تماس با ما</a>
-					</li>
-					<li><a href="/our-services/">خدمات ما</a>
-					</li>
-					<li><a href="/about-us/">درباره ما</a>
-					</li>
-					<li class="has-submenu"><a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
-						<ul class="submenu">
-							<li><a href="/">صفحه نخست 1</a>
-							</li>
-							<li><a href="/homepage2/">صفحه نخست 2</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<!--end navigation menu-->
-			</div>
-			<!--end navigation-->
-		</div>
-		<!--end container-->
-	</header>
-	<!--======================================
-        END/NAVIGATION AREA
-    ======================================-->
-	<!--======================================
-        BANNER AREA
-    ======================================-->
-	<section class="px-banner-2 white-text">
-		<div class="px-modern-Slider">
-			{% for slide in slideshow %}
-				<div class="item">
-					<div class="img-fill">
-						<img src="{{ slide.object.slide_img.url }}" alt="img" class="img-fluid">
-						<div class="info">
-							<div class="px-banner-center">
-								<h1 class="hero-heading">
-									{% for title_part in slide.title_parts %}{{ title_part.title }}
-										<span>{{ title_part.span }}</span>
-									{% endfor %}
-								</h1>
-								<p class="hero-content">{{ slide.object.slide_body_text }}</p>
-							</div>
-						</div>
-						<div class="scroll-downs">
-							<div class="mousey">
-								<div class="scroller"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-	</section>
-	<!--======================================
-        END/BANNER AREA
-    ======================================-->
-	<!--======================================
-              ABOUT SECTION
-      ======================================-->
-	<section class="section-padding px-intro-about p-relative px-pattern-bg px-bg-pattern">
-		<div class="container">
-			<div class="section-header">
-				<h3 class="section-title fw-700">ما کی هستیم</h3>
-				<h4 class="section-title-sub">درباره ما</h4>
-				<p>آیا به دنبال ایجاد یک وب سایت چشم نواز، برنامه ای برای تلفن همراه، برای تجارت خود هستید ، ما بهترین
-				   گزینه شما هستیم</p>
-			</div>
-			<div class="row">
-				<div class="col-xl-4 col-md-4">
-					<div class="px-about-block">
-						<div class="px-about-block-img">
-							<img src="https://via.placeholder.com/64" alt="img" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-about-block-text">
-							<h4 class="mb-0">ایده برای اختراع</h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-md-4">
-					<div class="px-about-block">
-						<div class="px-about-block-img">
-							<img src="https://via.placeholder.com/64" alt="img" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-about-block-text">
-							<h4 class="mb-0">بازاریابی</h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-md-4">
-					<div class="px-about-block">
-						<div class="px-about-block-img">
-							<img src="https://via.placeholder.com/64" alt="img" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-about-block-text">
-							<h4 class="mb-0">خدمات ابری</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-			{% for video in videos %}
-				<div class="row pt-80 px-custom">
-					<div class="col-xl-6 col-lg-6 {% if video.video_R_dir %} order-last {% endif %}">
-						<div class="px-intro-block-img">
-							<img src="{{ video.cover_img.url }}" alt="img" class="img-fluid mx-auto d-block">
-							<a id="play-video" name="{{ video.id }}" class="video-play-button"
-							   href="{{ video.video_url }}">
-								<span></span>
-							</a>
-						</div>
-					</div>
-					<div class="col-xl-6 col-lg-6 align-self-center">
-						<div class="px-into-block-content">
-							<h4 class="px-intro-block-title fw-600">{{ video.video_title }}</h4>
-							<p>
-								{% for sentences in video.video_description %}
-									{{ sentences }}
-									<br/>
+	<!--end container-->
+</header>
+<!--======================================
+	END/NAVIGATION AREA
+======================================-->
+<!--======================================
+	BANNER AREA
+======================================-->
+<section class="px-banner-2 white-text">
+	<div class="px-modern-Slider">
+		{% for slide in slideshow %}
+			<div class="item">
+				<div class="img-fill">
+					<img src="{{ slide.object.slide_img.url }}" alt="img" class="img-fluid">
+					<div class="info">
+						<div class="px-banner-center">
+							<h1 class="hero-heading">
+								{% for title_part in slide.title_parts %}{{ title_part.title }}
+									<span>{{ title_part.span }}</span>
 								{% endfor %}
-							</p>
+							</h1>
+							<p class="hero-content">{{ slide.object.slide_body_text }}</p>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
-		</div>
-	</section>
-	<!--======================================
-              END/ABOUT SECTION
-      ======================================-->
-	<!--======================================
-              SERVICE SECTION
-      ======================================-->
-	<section class="section-padding bg-light-white px-service-section p-relative pattern">
-		<div class="container">
-			<div class="section-header">
-				<h3 class="fw-700 section-title">ما می توانیم</h3>
-				<h4 class="section-title-sub">خدمات ما</h4>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="row">
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="px-service-block">
-						<div class="px-service-icon">
-							<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-service-text">
-							<h4>طراحی وب سایت</h4>
-							<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="px-service-block">
-						<div class="px-service-icon">
-							<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-service-text">
-							<h4>توسعه وب</h4>
-							<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="px-service-block">
-						<div class="px-service-icon">
-							<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-service-text">
-							<h4>طراحی تعاملی</h4>
-							<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="px-service-block">
-						<div class="px-service-icon">
-							<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-service-text">
-							<h4>هویت تجاری</h4>
-							<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="px-service-block">
-						<div class="px-service-icon">
-							<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-service-text">
-							<h4>طراحی خلاق</h4>
-							<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="px-service-block">
-						<div class="px-service-icon">
-							<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-						</div>
-						<div class="px-service-text">
-							<h4>نوشتن مطالب</h4>
-							<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					<div class="scroll-downs">
+						<div class="mousey">
+							<div class="scroller"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!--======================================
-              END/Service SECTION
-      ======================================-->
-	<!--======================================
-              PORTFOLIO SECTION
-      ======================================-->
-	<section class="section-padding px-work-section p-relative">
-		<div class="container">
-			<div class="section-header">
-				<h3 class="fw-700 section-title">ویترین کار ها</h3>
-				<h4 class="section-title-sub">نمونه کار</h4>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-		</div>
-		<div class="container-fluid">
-			<div class="px-work-slider">
-				<div class="px-work-item-wrapper">
-					<div class="px-work-item">
-						<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-						<div class="px-item-content">
-							<div class="px-main-content">
-								<div class="icon"> <a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-								</div>
-								<h4>وب سایت</h4>
-								<h6 class="fs-16 mb-0">مشاور املاک</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="px-work-item-wrapper">
-					<div class="px-work-item">
-						<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-						<div class="px-item-content">
-							<div class="px-main-content">
-								<div class="icon"> <a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-								</div>
-								<h4>طراحی جلد</h4>
-								<h6 class="fs-16 mb-0">انتشار کتاب</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="px-work-item-wrapper">
-					<div class="px-work-item">
-						<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-						<div class="px-item-content">
-							<div class="px-main-content">
-								<div class="icon"> <a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-								</div>
-								<h4>طراحی پوستر</h4>
-								<h6 class="fs-16 mb-0">پوسترهای NY</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="px-work-item-wrapper">
-					<div class="px-work-item">
-						<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-						<div class="px-item-content">
-							<div class="px-main-content">
-								<div class="icon"> <a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-								</div>
-								<h4>طراحی محصول</h4>
-								<h6 class="fs-16 mb-0">کیسه های Acc</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="px-btn-block text-center pt-50">
-				<div class="px-slider-arrow">
-					<div class="px-prev-arrow slick-prev slick-arrow"> <span><i class="fas fa-arrow-left"></i></span>
-					</div>
-					<div class="px-next-arrow slick-next slick-arrow"> <span><i class="fa fa-arrow-right"></i></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-              END/PORTFOLIO SECTION
-      ======================================-->
-	<!--======================================
-              COUNTER SECTION
-      ======================================-->
-	<section class="section-padding px-parallax-bg px-counter-section px-counter-bg-img p-relative">
-		<div class="overlay-bg-light"></div>
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">همیشه سعی میکنیم <span class="text-theme-highlight">انتظارات</span> مشتری را برآورده کنیم</h3>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="row">
-				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-					<div class="px-cout-block">
-						<div class="px-cout-title">
-							<h6><span class="counter">5564</span></h6>
-							<h4 class="px-cout-text">مشتری</h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-					<div class="px-cout-block">
-						<div class="px-cout-title">
-							<h6><span font="fa" class="counter">10</span></h6>
-							<h4 class="px-cout-text">سال تجربه</h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-					<div class="px-cout-block">
-						<div class="px-cout-title">
-							<h6><span class="counter">3645</span></h6>
-							<h4 class="px-cout-text">مشتریان راضی</h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-					<div class="px-cout-block">
-						<div class="px-cout-title">
-							<h6><span class="counter">254</span></h6>
-							<h4 class="px-cout-text">کار حرفه ای</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-              END/COUNTER SECTION
-      ======================================-->
-	<!--======================================
-              OUR PROCESS SECTIONS
-      ======================================-->
-	<section class="section-padding px-process-section">
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">مراحل کار ما</h3>
-				<h4 class="section-title-sub">روند کار</h4>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="row">
-				<div class="col-lg-3 px-culmn">
-					<div class="px-process-item">
-						<div class="px-process-icon">
-							<img src="https://via.placeholder.com/64" alt="">
-						</div>
-						<div class="px-process-title">
-							<h4>گرفتن پرونده</h4>
-							<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 px-culmn">
-					<div class="px-process-item">
-						<div class="px-process-icon">
-							<img src="https://via.placeholder.com/64" alt="">
-						</div>
-						<div class="px-process-title">
-							<h4>جدول بحث و گفتگو</h4>
-							<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 px-culmn">
-					<div class="px-process-item">
-						<div class="px-process-icon">
-							<img src="https://via.placeholder.com/64" alt="">
-						</div>
-						<div class="px-process-title">
-							<h4>کار های تمام شد</h4>
-							<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 px-culmn">
-					<div class="px-process-item">
-						<div class="px-process-icon">
-							<img src="https://via.placeholder.com/64" alt="">
-						</div>
-						<div class="px-process-title">
-							<h4>تحویل مشتری</h4>
-							<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="px-btn-block mt-30 text-center">
-				<a href="#" class="px-btn px-btn-primary">از امروز شروع کنید</a>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-                  END / OUR PROCESS SECTIONS
-          ======================================-->
-	<!--======================================
-              OUR TEAM SECTIONS
-      ======================================-->
-	<section class="section-padding bg-light-white px-team-section pattern p-relative">
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">تیم ما</h3>
-				<h3 class="section-title-sub">اعضای</h3>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="single-team text-center mb-30">
-						<div class="team-thumb">
-							<img src="https://via.placeholder.com/280x291" alt="img">
-						</div>
-						<div class="team-info">
-							<h4>نام فامیل</h4>
-							<h6 class="fs-16">طراح گرافیک</h6>
-							<div class="team-social mt-15"> <a href="#"><i class="fab fa-facebook-f"></i></a>
-								<a href="#"><i class="fab fa-twitter"></i></a>
-								<a href="#"><i class="fab fa-instagram"></i></a>
-								<a href="#"><i class="fab fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-team text-center mb-30">
-						<div class="team-thumb">
-							<img src="https://via.placeholder.com/280x291" alt="img">
-						</div>
-						<div class="team-info">
-							<h4>نام فامیل</h4>
-							<h6 class="fs-16">توسعه دهنده وب</h6>
-							<div class="team-social mt-15"> <a href="#"><i class="fab fa-facebook-f"></i></a>
-								<a href="#"><i class="fab fa-twitter"></i></a>
-								<a href="#"><i class="fab fa-instagram"></i></a>
-								<a href="#"><i class="fab fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-team text-center mb-30">
-						<div class="team-thumb">
-							<img src="https://via.placeholder.com/280x291" alt="img">
-						</div>
-						<div class="team-info">
-							<h4>نام فامیل</h4>
-							<h6 class="fs-16">طراح وب</h6>
-							<div class="team-social mt-15"> <a href="#"><i class="fab fa-facebook-f"></i></a>
-								<a href="#"><i class="fab fa-twitter"></i></a>
-								<a href="#"><i class="fab fa-instagram"></i></a>
-								<a href="#"><i class="fab fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-              END / OUR TEAM SECTIONS
-      ======================================-->
-	<!--======================================
-              OUR TESTIMONIALS SECTIONS
-      ======================================-->
-	<section class="section-padding px-clients-section">
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">مشتریان ما</h3>
-				<h3 class="section-title-sub">توصیفات</h3>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="px-clients-slider">
-				<div class="px-testi-item">
-					<div class="px-testimonial-item">
-						<h4>نام فامیل</h4>
-						<span>توسعه دهنده</span>
-						<div class="icon">
-							<img src="https://via.placeholder.com/54" alt="">
-						</div>
-						<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-				</div>
-				<div class="px-testi-item">
-					<div class="px-testimonial-item">
-						<h4>نام فامیل</h4>
-						<span>مدیر عامل شرکت INC</span>
-						<div class="icon">
-							<img src="https://via.placeholder.com/54" alt="">
-						</div>
-						<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-				</div>
-				<div class="px-testi-item">
-					<div class="px-testimonial-item">
-						<h4>نام فامیل</h4>
-						<span>بنیانگذار LLP</span>
-						<div class="icon">
-							<img src="https://via.placeholder.com/54" alt="">
-						</div>
-						<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-				</div>
-				<div class="px-testi-item">
-					<div class="px-testimonial-item">
-						<h4>نام فامیل</h4>
-						<span>بنیانگذار LLP</span>
-						<div class="icon">
-							<img src="https://via.placeholder.com/54" alt="">
-						</div>
-						<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-				</div>
-				<div class="px-testi-item">
-					<div class="px-testimonial-item">
-						<h4>نام فامیل</h4>
-						<span>بنیانگذار LLP</span>
-						<div class="icon">
-							<img src="https://via.placeholder.com/54" alt="">
-						</div>
-						<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-				</div>
-				<div class="px-testi-item">
-					<div class="px-testimonial-item">
-						<h4>نام فامیل</h4>
-						<span>بنیانگذار LLP</span>
-						<div class="icon">
-							<img src="https://via.placeholder.com/54" alt="">
-						</div>
-						<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-              END / TESTIMONIALS SECTIONS
-      ======================================-->
-	<!--======================================
-              DEVIDE SECTION
-      ======================================-->
-	<section class="section-padding px-parallax-bg px-counter-section px-counter-bg-img p-relative">
-		<div class="overlay-bg-light"></div>
-		<div class="container">
-			<div class="px-about-head-content section-header pb-0">
-				<h3 class="fw-700 section-title">ما احساسات را تولید می کنیم <br><span class="text-theme-highlight">کیفیت </span>تولید - محصول</h3>
-				<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</p>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-              END/DEVIDE SECTION
-      ======================================-->
-	<!--======================================
-              OUR PRICING SECTIONS
-      ======================================-->
-	<section class="section-padding bg-light-white px-pricing-section pattern p-relative">
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">قیمت گذاری ما</h3>
-				<h3 class="section-title-sub">بسته ها</h3>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="row">
-				<div class="col-12 col-md-6 col-lg-4 mb-30 align-self-center text-center">
-					<div class="card bg-white-color">
-						<div class="px-price-icon icon-handbag primary-color">
-							<img src="https://via.placeholder.com/64" alt="icon" class="mx-auto d-block img-fluid">
-						</div>
-						<h4 class="grey-color">استارتاپ ها</h4>
-						<span class="price grey-color"><i>$</i>129</span>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>1 GB Photos</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Secure Online Transfer</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Unlimited Styles</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Customer Service</span>
-								<i class="far fa-times-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Manual Backup</span>
-								<i class="far fa-times-circle icon-min text-left"></i>
-							</li>
-						</ul>
-						<div class="mt-20">
-							<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
-									class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-6 col-lg-4 mb-30 align-self-center text-center">
-					<div class="card bg-white-color">
-						<div class="px-price-icon icon-handbag primary-color">
-							<img src="https://via.placeholder.com/64" alt="icon" class="mx-auto d-block img-fluid">
-						</div>
-						<h4 class="grey-color">کسب و کار</h4>
-						<span class="price grey-color"><i>$</i>549</span>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>1 GB Photos</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Secure Online Transfer</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Unlimited Styles</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Customer Service</span>
-								<i class="far fa-times-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Manual Backup</span>
-								<i class="far fa-times-circle icon-min text-left"></i>
-							</li>
-						</ul>
-						<div class="mt-20">
-							<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
-									class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-6 col-lg-4 mb-30 align-self-center text-center">
-					<div class="card bg-white-color">
-						<div class="px-price-icon icon-handbag primary-color">
-							<img src="https://via.placeholder.com/64" alt="icon" class="mx-auto d-block img-fluid">
-						</div>
-						<h4 class="grey-color">شرکت های بزرگ</h4>
-						<span class="price grey-color"><i>$</i>859</span>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>1 GB Photos</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Secure Online Transfer</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Unlimited Styles</span>
-								<i class="far fa-check-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Customer Service</span>
-								<i class="far fa-times-circle icon-min text-left"></i>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
-								<span>Manual Backup</span>
-								<i class="far fa-times-circle icon-min text-left"></i>
-							</li>
-						</ul>
-						<div class="mt-20">
-							<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
-									class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-                  END / OUR PRICING SECTIONS
-          ======================================-->
-	<!--======================================
-              OUR BLOG SECTIONS
-      ======================================-->
-	<section class="section-padding px-blog-section">
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">مقالات</h3>
-				<h3 class="section-title-sub">اخبار ما</h3>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Jackson Jim</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Business</li>
-									<li class="px-article--featured-category-list">Startup</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Simon Jackson</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Technology</li>
-									<li class="px-article--featured-category-list">Industery</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Luthor</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Corporate</li>
-									<li class="px-article--featured-category-list">Business</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-            END / OUR BLOG SECTIONS
+		{% endfor %}
+	</div>
+</section>
+<!--======================================
+	END/BANNER AREA
+======================================-->
+<!--======================================
+		  ABOUT SECTION
   ======================================-->
-	<!--======================================
-            CONTACT SECTION
-  ======================================-->
-	<section class="section-padding bg-light-white px-faq-section p-relative pattern">
-		<div class="container">
-			<div class="px-about-head-content section-header">
-				<h3 class="fw-700 section-title">سوالی دارید؟</h3>
-				<h3 class="section-title-sub">تماس با ما</h3>
-				<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+<section class="section-padding px-intro-about p-relative px-pattern-bg px-bg-pattern">
+	<div class="container">
+		<div class="section-header">
+			<h3 class="section-title fw-700">ما کی هستیم</h3>
+			<h4 class="section-title-sub">درباره ما</h4>
+			<p>آیا به دنبال ایجاد یک وب سایت چشم نواز، برنامه ای برای تلفن همراه، برای تجارت خود هستید ، ما بهترین
+			   گزینه شما هستیم</p>
+		</div>
+		<div class="row">
+			<div class="col-xl-4 col-md-4">
+				<div class="px-about-block">
+					<div class="px-about-block-img">
+						<img src="https://via.placeholder.com/64" alt="img" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-about-block-text">
+						<h4 class="mb-0">ایده برای اختراع</h4>
+					</div>
+				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-8 col-md-7">
-					<form class="px-contact-from px-contact-style mf_form mf_form_validate ajax_submit" method="POST" enctype="multipart/form-data">{% csrf_token %}
-						<div class="row">
-							<div class="col-lg-12 mb-30">
-								<div class="server_response"></div>
+			<div class="col-xl-4 col-md-4">
+				<div class="px-about-block">
+					<div class="px-about-block-img">
+						<img src="https://via.placeholder.com/64" alt="img" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-about-block-text">
+						<h4 class="mb-0">بازاریابی</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4 col-md-4">
+				<div class="px-about-block">
+					<div class="px-about-block-img">
+						<img src="https://via.placeholder.com/64" alt="img" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-about-block-text">
+						<h4 class="mb-0">خدمات ابری</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% for video in videos %}
+			<div class="row pt-80 px-custom">
+				<div class="col-xl-6 col-lg-6 {% if video.video_R_dir %} order-last {% endif %}">
+					<div class="px-intro-block-img">
+						<img src="{{ video.cover_img.url }}" alt="img" class="img-fluid mx-auto d-block">
+						<a id="play-video" name="{{ video.id }}" class="video-play-button"
+						   href="{{ video.video_url }}">
+							<span></span>
+						</a>
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-6 align-self-center">
+					<div class="px-into-block-content">
+						<h4 class="px-intro-block-title fw-600">{{ video.video_title }}</h4>
+						<p>
+							{% for sentences in video.video_description %}
+								{{ sentences }}
+								<br/>
+							{% endfor %}
+						</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</section>
+<!--======================================
+		  END/ABOUT SECTION
+  ======================================-->
+<!--======================================
+		  SERVICE SECTION
+  ======================================-->
+<section class="section-padding bg-light-white px-service-section p-relative pattern">
+	<div class="container">
+		<div class="section-header">
+			<h3 class="fw-700 section-title">ما می توانیم</h3>
+			<h4 class="section-title-sub">خدمات ما</h4>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-xl-4 col-lg-4 col-md-6">
+				<div class="px-service-block">
+					<div class="px-service-icon">
+						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-service-text">
+						<h4>طراحی وب سایت</h4>
+						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-6">
+				<div class="px-service-block">
+					<div class="px-service-icon">
+						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-service-text">
+						<h4>توسعه وب</h4>
+						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-6">
+				<div class="px-service-block">
+					<div class="px-service-icon">
+						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-service-text">
+						<h4>طراحی تعاملی</h4>
+						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-6">
+				<div class="px-service-block">
+					<div class="px-service-icon">
+						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-service-text">
+						<h4>هویت تجاری</h4>
+						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-6">
+				<div class="px-service-block">
+					<div class="px-service-icon">
+						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-service-text">
+						<h4>طراحی خلاق</h4>
+						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-6">
+				<div class="px-service-block">
+					<div class="px-service-icon">
+						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
+					</div>
+					<div class="px-service-text">
+						<h4>نوشتن مطالب</h4>
+						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		  END/Service SECTION
+  ======================================-->
+<!--======================================
+		  PORTFOLIO SECTION
+  ======================================-->
+<section class="section-padding px-work-section p-relative">
+	<div class="container">
+		<div class="section-header">
+			<h3 class="fw-700 section-title">ویترین کار ها</h3>
+			<h4 class="section-title-sub">نمونه کار</h4>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="px-work-slider">
+			<div class="px-work-item-wrapper">
+				<div class="px-work-item">
+					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
+					<div class="px-item-content">
+						<div class="px-main-content">
+							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
 							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="form-group">
-									<input type="text" name="name" class="form-control" required="" placeholder="Name">
-								</div>
+							<h4>وب سایت</h4>
+							<h6 class="fs-16 mb-0">مشاور املاک</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="px-work-item-wrapper">
+				<div class="px-work-item">
+					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
+					<div class="px-item-content">
+						<div class="px-main-content">
+							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
 							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="form-group">
-									<input type="text" name="email" class="form-control" required="" placeholder="Email">
-								</div>
+							<h4>طراحی جلد</h4>
+							<h6 class="fs-16 mb-0">انتشار کتاب</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="px-work-item-wrapper">
+				<div class="px-work-item">
+					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
+					<div class="px-item-content">
+						<div class="px-main-content">
+							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
 							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="form-group">
-									<input type="text" name="phone" required="" class="form-control" placeholder="Phone">
-								</div>
+							<h4>طراحی پوستر</h4>
+							<h6 class="fs-16 mb-0">پوسترهای NY</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="px-work-item-wrapper">
+				<div class="px-work-item">
+					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
+					<div class="px-item-content">
+						<div class="px-main-content">
+							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
 							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="form-group">
-									<input type="text" name="subject" class="form-control" required="" placeholder="Subject">
-								</div>
+							<h4>طراحی محصول</h4>
+							<h6 class="fs-16 mb-0">کیسه های Acc</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="px-btn-block text-center pt-50">
+			<div class="px-slider-arrow">
+				<div class="px-prev-arrow slick-prev slick-arrow"><span><i class="fas fa-arrow-left"></i></span>
+				</div>
+				<div class="px-next-arrow slick-next slick-arrow"><span><i class="fa fa-arrow-right"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		  END/PORTFOLIO SECTION
+  ======================================-->
+<!--======================================
+		  COUNTER SECTION
+  ======================================-->
+<section class="section-padding px-parallax-bg px-counter-section px-counter-bg-img p-relative">
+	<div class="overlay-bg-light"></div>
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">همیشه سعی میکنیم <span class="text-theme-highlight">انتظارات</span> مشتری
+											 را برآورده کنیم</h3>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+				<div class="px-cout-block">
+					<div class="px-cout-title">
+						<h6><span class="counter">5564</span></h6>
+						<h4 class="px-cout-text">مشتری</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+				<div class="px-cout-block">
+					<div class="px-cout-title">
+						<h6><span font="fa" class="counter">10</span></h6>
+						<h4 class="px-cout-text">سال تجربه</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+				<div class="px-cout-block">
+					<div class="px-cout-title">
+						<h6><span class="counter">3645</span></h6>
+						<h4 class="px-cout-text">مشتریان راضی</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+				<div class="px-cout-block">
+					<div class="px-cout-title">
+						<h6><span class="counter">254</span></h6>
+						<h4 class="px-cout-text">کار حرفه ای</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		  END/COUNTER SECTION
+  ======================================-->
+<!--======================================
+		  OUR PROCESS SECTIONS
+  ======================================-->
+<section class="section-padding px-process-section">
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">مراحل کار ما</h3>
+			<h4 class="section-title-sub">روند کار</h4>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 px-culmn">
+				<div class="px-process-item">
+					<div class="px-process-icon">
+						<img src="https://via.placeholder.com/64" alt="">
+					</div>
+					<div class="px-process-title">
+						<h4>گرفتن پرونده</h4>
+						<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 px-culmn">
+				<div class="px-process-item">
+					<div class="px-process-icon">
+						<img src="https://via.placeholder.com/64" alt="">
+					</div>
+					<div class="px-process-title">
+						<h4>جدول بحث و گفتگو</h4>
+						<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 px-culmn">
+				<div class="px-process-item">
+					<div class="px-process-icon">
+						<img src="https://via.placeholder.com/64" alt="">
+					</div>
+					<div class="px-process-title">
+						<h4>کار های تمام شد</h4>
+						<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 px-culmn">
+				<div class="px-process-item">
+					<div class="px-process-icon">
+						<img src="https://via.placeholder.com/64" alt="">
+					</div>
+					<div class="px-process-title">
+						<h4>تحویل مشتری</h4>
+						<p>این یک متن ساختگی می باشد. لورم ایپسوم به سادگی متن ساختگی لورم صنعت بوده است</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="px-btn-block mt-30 text-center">
+			<a href="#" class="px-btn px-btn-primary">از امروز شروع کنید</a>
+		</div>
+	</div>
+</section>
+<!--======================================
+			  END / OUR PROCESS SECTIONS
+	  ======================================-->
+<!--======================================
+		  OUR TEAM SECTIONS
+  ======================================-->
+<section class="section-padding bg-light-white px-team-section pattern p-relative">
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">تیم ما</h3>
+			<h3 class="section-title-sub">اعضای</h3>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team text-center mb-30">
+					<div class="team-thumb">
+						<img src="https://via.placeholder.com/280x291" alt="img">
+					</div>
+					<div class="team-info">
+						<h4>نام فامیل</h4>
+						<h6 class="fs-16">طراح گرافیک</h6>
+						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
+							<a href="#"><i class="fab fa-twitter"></i></a>
+							<a href="#"><i class="fab fa-instagram"></i></a>
+							<a href="#"><i class="fab fa-dribbble"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team text-center mb-30">
+					<div class="team-thumb">
+						<img src="https://via.placeholder.com/280x291" alt="img">
+					</div>
+					<div class="team-info">
+						<h4>نام فامیل</h4>
+						<h6 class="fs-16">توسعه دهنده وب</h6>
+						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
+							<a href="#"><i class="fab fa-twitter"></i></a>
+							<a href="#"><i class="fab fa-instagram"></i></a>
+							<a href="#"><i class="fab fa-dribbble"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team text-center mb-30">
+					<div class="team-thumb">
+						<img src="https://via.placeholder.com/280x291" alt="img">
+					</div>
+					<div class="team-info">
+						<h4>نام فامیل</h4>
+						<h6 class="fs-16">طراح وب</h6>
+						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
+							<a href="#"><i class="fab fa-twitter"></i></a>
+							<a href="#"><i class="fab fa-instagram"></i></a>
+							<a href="#"><i class="fab fa-dribbble"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		  END / OUR TEAM SECTIONS
+  ======================================-->
+<!--======================================
+		  OUR TESTIMONIALS SECTIONS
+  ======================================-->
+<section class="section-padding px-clients-section">
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">مشتریان ما</h3>
+			<h3 class="section-title-sub">توصیفات</h3>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="px-clients-slider">
+			<div class="px-testi-item">
+				<div class="px-testimonial-item">
+					<h4>نام فامیل</h4>
+					<span>توسعه دهنده</span>
+					<div class="icon">
+						<img src="https://via.placeholder.com/54" alt="">
+					</div>
+					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+				</div>
+			</div>
+			<div class="px-testi-item">
+				<div class="px-testimonial-item">
+					<h4>نام فامیل</h4>
+					<span>مدیر عامل شرکت INC</span>
+					<div class="icon">
+						<img src="https://via.placeholder.com/54" alt="">
+					</div>
+					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+				</div>
+			</div>
+			<div class="px-testi-item">
+				<div class="px-testimonial-item">
+					<h4>نام فامیل</h4>
+					<span>بنیانگذار LLP</span>
+					<div class="icon">
+						<img src="https://via.placeholder.com/54" alt="">
+					</div>
+					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+				</div>
+			</div>
+			<div class="px-testi-item">
+				<div class="px-testimonial-item">
+					<h4>نام فامیل</h4>
+					<span>بنیانگذار LLP</span>
+					<div class="icon">
+						<img src="https://via.placeholder.com/54" alt="">
+					</div>
+					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+				</div>
+			</div>
+			<div class="px-testi-item">
+				<div class="px-testimonial-item">
+					<h4>نام فامیل</h4>
+					<span>بنیانگذار LLP</span>
+					<div class="icon">
+						<img src="https://via.placeholder.com/54" alt="">
+					</div>
+					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+				</div>
+			</div>
+			<div class="px-testi-item">
+				<div class="px-testimonial-item">
+					<h4>نام فامیل</h4>
+					<span>بنیانگذار LLP</span>
+					<div class="icon">
+						<img src="https://via.placeholder.com/54" alt="">
+					</div>
+					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		  END / TESTIMONIALS SECTIONS
+  ======================================-->
+<!--======================================
+		  DEVIDE SECTION
+  ======================================-->
+<section class="section-padding px-parallax-bg px-counter-section px-counter-bg-img p-relative">
+	<div class="overlay-bg-light"></div>
+	<div class="container">
+		<div class="px-about-head-content section-header pb-0">
+			<h3 class="fw-700 section-title">ما احساسات را تولید می کنیم <br><span
+					class="text-theme-highlight">کیفیت </span>تولید - محصول</h3>
+			<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+									و با استفاده از طراحان گرافیک است</p>
+		</div>
+	</div>
+</section>
+<!--======================================
+		  END/DEVIDE SECTION
+  ======================================-->
+<!--======================================
+		  OUR PRICING SECTIONS
+  ======================================-->
+<section class="section-padding bg-light-white px-pricing-section pattern p-relative">
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">قیمت گذاری ما</h3>
+			<h3 class="section-title-sub">بسته ها</h3>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-4 mb-30 align-self-center text-center">
+				<div class="card bg-white-color">
+					<div class="px-price-icon icon-handbag primary-color">
+						<img src="https://via.placeholder.com/64" alt="icon" class="mx-auto d-block img-fluid">
+					</div>
+					<h4 class="grey-color">استارتاپ ها</h4>
+					<span class="price grey-color"><i>$</i>129</span>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>1 GB Photos</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Secure Online Transfer</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Unlimited Styles</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Customer Service</span>
+							<i class="far fa-times-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Manual Backup</span>
+							<i class="far fa-times-circle icon-min text-left"></i>
+						</li>
+					</ul>
+					<div class="mt-20">
+						<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
+								class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-4 mb-30 align-self-center text-center">
+				<div class="card bg-white-color">
+					<div class="px-price-icon icon-handbag primary-color">
+						<img src="https://via.placeholder.com/64" alt="icon" class="mx-auto d-block img-fluid">
+					</div>
+					<h4 class="grey-color">کسب و کار</h4>
+					<span class="price grey-color"><i>$</i>549</span>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>1 GB Photos</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Secure Online Transfer</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Unlimited Styles</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Customer Service</span>
+							<i class="far fa-times-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Manual Backup</span>
+							<i class="far fa-times-circle icon-min text-left"></i>
+						</li>
+					</ul>
+					<div class="mt-20">
+						<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
+								class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-4 mb-30 align-self-center text-center">
+				<div class="card bg-white-color">
+					<div class="px-price-icon icon-handbag primary-color">
+						<img src="https://via.placeholder.com/64" alt="icon" class="mx-auto d-block img-fluid">
+					</div>
+					<h4 class="grey-color">شرکت های بزرگ</h4>
+					<span class="price grey-color"><i>$</i>859</span>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>1 GB Photos</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Secure Online Transfer</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Unlimited Styles</span>
+							<i class="far fa-check-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Customer Service</span>
+							<i class="far fa-times-circle icon-min text-left"></i>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+							<span>Manual Backup</span>
+							<i class="far fa-times-circle icon-min text-left"></i>
+						</li>
+					</ul>
+					<div class="mt-20">
+						<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
+								class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+			  END / OUR PRICING SECTIONS
+	  ======================================-->
+<!--======================================
+		  OUR BLOG SECTIONS
+  ======================================-->
+<section class="section-padding px-blog-section">
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">مقالات</h3>
+			<h3 class="section-title-sub">اخبار ما</h3>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Jackson Jim</span>
 							</div>
-							<div class="col-lg-12 col-md-12">
-								<div class="form-group">
-									<textarea name="message" class="form-control" cols="20" rows="4" required="" data-error="Write your message" placeholder="Your Message"></textarea>
-								</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Business</li>
+								<li class="px-article--featured-category-list">Startup</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
 							</div>
-							<div class="col-lg-12 col-md-12">
-								<div class="px-btn-block "> <button type="submit" class="px-btn px-btn-primary">Send</button>
-								</div>
-								<div class="clearfix"></div>
+						</article>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Simon Jackson</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Technology</li>
+								<li class="px-article--featured-category-list">Industery</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Luthor</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Corporate</li>
+								<li class="px-article--featured-category-list">Business</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		END / OUR BLOG SECTIONS
+======================================-->
+<!--======================================
+		CONTACT SECTION
+======================================-->
+<section class="section-padding bg-light-white px-faq-section p-relative pattern">
+	<div class="container">
+		<div class="px-about-head-content section-header">
+			<h3 class="fw-700 section-title">سوالی دارید؟</h3>
+			<h3 class="section-title-sub">تماس با ما</h3>
+			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-md-7">
+				<form class="px-contact-from px-contact-style mf_form mf_form_validate ajax_submit" method="POST"
+					  enctype="multipart/form-data">{% csrf_token %}
+					<div class="row">
+						<div class="col-lg-12 mb-30">
+							<div class="server_response"></div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="name" class="form-control" required="" placeholder="Name">
 							</div>
 						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="email" class="form-control" required="" placeholder="Email">
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="phone" required="" class="form-control" placeholder="Phone">
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group">
+								<input type="text" name="subject" class="form-control" required=""
+									   placeholder="Subject">
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group">
+								<textarea name="message" class="form-control" cols="20" rows="4" required=""
+										  data-error="Write your message" placeholder="Your Message"></textarea>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<div class="px-btn-block ">
+								<button type="submit" class="px-btn px-btn-primary">Send</button>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-4 col-md-5 align-self-center">
+				<div class="media">
+					<div class="px-faq-icon"><i class="fas fa-map-marker-alt"></i>
+					</div>
+					<div class="media-body">
+						<h5 class="mt-0">Our<span class="text-theme-highlight"> Location</span></h5>
+						<p class="answer text-muted mb-0">San Francisco, CA 560 Bush St & 20th Ave, Apt 5 San Francisco,
+														  230909.</p>
+					</div>
+				</div>
+				<div class="media mt-30">
+					<div class="px-faq-icon"><i class="fas fa-envelope"></i>
+					</div>
+					<div class="media-body">
+						<h5 class="mt-0">Our<span class="text-theme-highlight"> Email</span></h5>
+						<p class="answer text-muted mb-0">Mark@webzonethemes.com</p>
+					</div>
+				</div>
+				<div class="media mt-30">
+					<div class="px-faq-icon"><i class="fas fa-phone-alt"></i>
+					</div>
+					<div class="media-body">
+						<h5 class="mt-0">Our <span class="text-theme-highlight"> Contact</span></h5>
+						<p class="answer text-muted">(737) 809-545-3632</p>
+						<p class="answer text-muted mb-0">(854) 895-545-6565</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--======================================
+		END / CONTACT SECTIONS
+======================================-->
+<!--======================================
+		END / OUR PARTNERS SECTIONS
+======================================-->
+<div class="section-padding px-partners-section bg-primary-color p-relative">
+	<div class="container-fluid">
+		<div class="px-partner-slider">
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--======================================
+		END / OUR PARTNERS SECTIONS
+======================================-->
+<!--======================================
+		FOOTER
+======================================-->
+<footer class="px-footer footer-style-1 section-padding bg-carbon-black pb-0">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="px-footer-about-us">
+					<div><a class="logo" href="/">Prixto<span class="text-primary">.</span></a>
+					</div>
+					<p class="text-white mt-20">Sartorial probably haven't heard bout them umami portland. Sustainable,
+												croix la dollar salvia probably haven't bottle pinterest.</p>
+					<ul class="px-footer-social-icons">
+						<li><a href="#"><i class="fab fa-facebook"></i></a>
+						</li>
+						<li><a href="#"><i class="fab fa-twitter"></i></a>
+						</li>
+						<li><a href="#"><i class="fab fa-linkedin"></i></a>
+						</li>
+						<li><a href="#"><i class="fab fa-behance"></i></a>
+						</li>
+						<li><a href="#"><i class="fa fa-rss"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div style="text-align: right;" class="px-footer-useful-links">
+					<h6>لینک های مفید</h6>
+					<div class="row">
+						<div class="col-lg-6">
+							<ul>
+								<li><a href="#">راهنمایی</a>
+								</li>
+								<li><a href="#">شرایط و ضوابط</a>
+								</li>
+								<li><a href="#">حریم خصوصی</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-lg-6">
+							<ul>
+								<li><a href="#">درباره ما</a>
+								</li>
+								<li><a href="#">خدمات ما</a>
+								</li>
+								<li><a href="#">مشتریان ما</a>
+								</li>
+								<li><a href="#">تماس با ما</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="px-footer-subscribe-newsletters">
+					<h6>Subscribe Newsletters</h6>
+					<p class="text-white mt-20">Sartorial probably haven't heard them umami portland sustainable, croix
+												la dollar toast .</p>
+					<form action="#">
+						<input type="email" placeholder="Enter your email address.." required="" class="mb-20">
+						<button class="px-btn px-btn-primary">Subscribe Now</button>
 					</form>
 				</div>
-				<div class="col-lg-4 col-md-5 align-self-center">
-					<div class="media">
-						<div class="px-faq-icon"> <i class="fas fa-map-marker-alt"></i>
-						</div>
-						<div class="media-body">
-							<h5 class="mt-0">Our<span class="text-theme-highlight"> Location</span></h5>
-							<p class="answer text-muted mb-0">San Francisco, CA 560 Bush St & 20th Ave, Apt 5 San Francisco, 230909.</p>
-						</div>
-					</div>
-					<div class="media mt-30">
-						<div class="px-faq-icon"> <i class="fas fa-envelope"></i>
-						</div>
-						<div class="media-body">
-							<h5 class="mt-0">Our<span class="text-theme-highlight"> Email</span></h5>
-							<p class="answer text-muted mb-0">Mark@webzonethemes.com</p>
-						</div>
-					</div>
-					<div class="media mt-30">
-						<div class="px-faq-icon"> <i class="fas fa-phone-alt"></i>
-						</div>
-						<div class="media-body">
-							<h5 class="mt-0">Our <span class="text-theme-highlight"> Contact</span></h5>
-							<p class="answer text-muted">(737) 809-545-3632</p>
-							<p class="answer text-muted mb-0">(854) 895-545-6565</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
-	</section>
-	<!--======================================
-            END / CONTACT SECTIONS
-  ======================================-->
-	<!--======================================
-            END / OUR PARTNERS SECTIONS
-  ======================================-->
-	<div class="section-padding px-partners-section bg-primary-color p-relative">
-		<div class="container-fluid">
-			<div class="px-partner-slider">
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="px-footer-copyright">
+					<p class="text-white">© 2020 <a href="http://www.webzonethemes.com/">Webzonethemes</a>. All Rights
+										  Reserved.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--======================================
-            END / OUR PARTNERS SECTIONS
-  ======================================-->
-	<!--======================================
-            FOOTER
-  ======================================-->
-	<footer class="px-footer footer-style-1 section-padding bg-carbon-black pb-0">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="px-footer-about-us">
-						<div> <a class="logo" href="/">Prixto<span class="text-primary">.</span></a>
-						</div>
-						<p class="text-white mt-20">Sartorial probably haven't heard bout them umami portland. Sustainable, croix la dollar salvia probably haven't bottle pinterest.</p>
-						<ul class="px-footer-social-icons">
-							<li><a href="#"><i class="fab fa-facebook"></i></a>
-							</li>
-							<li><a href="#"><i class="fab fa-twitter"></i></a>
-							</li>
-							<li><a href="#"><i class="fab fa-linkedin"></i></a>
-							</li>
-							<li><a href="#"><i class="fab fa-behance"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-rss"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div style="text-align: right;" class="px-footer-useful-links">
-						<h6>لینک های مفید</h6>
-						<div class="row">
-							<div class="col-lg-6">
-								<ul>
-									<li><a href="#">راهنمایی</a>
-									</li>
-									<li><a href="#">شرایط و ضوابط</a>
-									</li>
-									<li><a href="#">حریم خصوصی</a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-lg-6">
-								<ul>
-									<li><a href="#">درباره ما</a>
-									</li>
-									<li><a href="#">خدمات ما</a>
-									</li>
-									<li><a href="#">مشتریان ما</a>
-									</li>
-									<li><a href="#">تماس با ما</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="px-footer-subscribe-newsletters">
-						<h6>Subscribe Newsletters</h6>
-						<p class="text-white mt-20">Sartorial probably haven't heard them umami portland sustainable, croix la dollar toast .</p>
-						<form action="#">
-							<input type="email" placeholder="Enter your email address.." required="" class="mb-20">
-							<button class="px-btn px-btn-primary">Subscribe Now</button>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="px-footer-copyright">
-						<p class="text-white">© 2020 <a href="http://www.webzonethemes.com/">Webzonethemes</a>. All Rights Reserved.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!--======================================
-            END / FOOTER SECTION
-  ======================================-->
-	<!-- Model -->
-	<div id="video-overlay" class="video-overlay"> <a class="video-overlay-close">&times;</a>
-	</div>
-	<!-- /END/Model -->
-	<!-- Place all Scripts Here -->
-	<!-- jQuery -->
-	<script src="{% static 'web_01/js/jquery.min.js' %}"></script>
-	<!-- Popper -->
-	<script src="{% static 'web_01/js/popper.min.js' %}"></script>
-	<!-- Bootstrap -->
-	<script src="{% static 'web_01/js/bootstrap.min.js' %}"></script>
-	<!-- Isotope Gallery -->
-	<script src="{% static 'web_01/js/isotope.min.js' %}"></script>
-	<!-- Nice-Select JS -->
-	<script src="{% static 'web_01/js/jquery.nice-select.min.js' %}"></script>
-	<!-- Waypoints JS -->
-	<script src="{% static 'web_01/js/jquery.waypoints.min.js' %}"></script>
-	<!-- Counter Jquery -->
-	<script src="{% static 'web_01/js/jquery.counterup.js' %}"></script>
-	<!-- Slick Slider -->
-	<script src="{% static 'web_01/js/slick.min.js' %}"></script>
-	<!-- sticky sidebar -->
-	<script src="{% static 'web_01/js/sticksy.js' %}"></script>
-	<!-- Theme Functions Js -->
-	<script src="{% static 'web_01/js/theme-functions.js' %}"></script>
-	<!-- Form Validation -->
-	<script src="{% static 'web_01/js/jquery.validate.min.js' %}"></script>
-	<!-- Form Js -->
-	<script src="{% static 'web_01/js/mf_form.js' %}"></script>
-	<!-- /Place all Scripts Here -->
+</footer>
+<!--======================================
+		END / FOOTER SECTION
+======================================-->
+<!-- Model -->
+<div id="video-overlay" class="video-overlay"><a class="video-overlay-close">&times;</a>
+</div>
+<!-- /END/Model -->
+<!-- Place all Scripts Here -->
+<!-- jQuery -->
+<script src="{% static 'web_01/js/jquery.min.js' %}"></script>
+<!-- Popper -->
+<script src="{% static 'web_01/js/popper.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'web_01/js/bootstrap.min.js' %}"></script>
+<!-- Isotope Gallery -->
+<script src="{% static 'web_01/js/isotope.min.js' %}"></script>
+<!-- Nice-Select JS -->
+<script src="{% static 'web_01/js/jquery.nice-select.min.js' %}"></script>
+<!-- Waypoints JS -->
+<script src="{% static 'web_01/js/jquery.waypoints.min.js' %}"></script>
+<!-- Counter Jquery -->
+<script src="{% static 'web_01/js/jquery.counterup.js' %}"></script>
+<!-- Slick Slider -->
+<script src="{% static 'web_01/js/slick.min.js' %}"></script>
+<!-- sticky sidebar -->
+<script src="{% static 'web_01/js/sticksy.js' %}"></script>
+<!-- Theme Functions Js -->
+<script src="{% static 'web_01/js/theme-functions.js' %}"></script>
+<!-- Form Validation -->
+<script src="{% static 'web_01/js/jquery.validate.min.js' %}"></script>
+<!-- Form Js -->
+<script src="{% static 'web_01/js/mf_form.js' %}"></script>
+<!-- /Place all Scripts Here -->
 </body>
 </html>

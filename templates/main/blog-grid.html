@@ -28,454 +28,461 @@
 	<!-- Custom Responsive -->
 	<link href="{% static 'web_01/css/responsive.css' %}" rel="stylesheet">
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap"
+		  rel="stylesheet">
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,500&display=swap"
+		  rel="stylesheet">
 	<!-- place -->
 </head>
 <body>
-	<div class="loader">
-		<div class="loader-inner"></div>
+<div class="loader">
+	<div class="loader-inner"></div>
+</div>
+<!--======================================
+	NAVIGATION AREA
+======================================-->
+<header id="topnav" class="defaultscroll sticky active">
+	<div class="container">
+		<!-- Logo container-->
+		<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
+		</div>
+		{% if user.is_authenticated %}
+			<div class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
+			</div>
+		{% else %}
+			<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
+			</div>
+		{% endif %}
+		<!--end login button-->
+		<!-- End Logo container-->
+		<div class="menu-extras">
+			<div class="menu-item">
+				<!-- Mobile menu toggle-->
+				<a class="navbar-toggle">
+					<div class="lines"><span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</a>
+				<!-- End mobile menu toggle-->
+			</div>
+		</div>
+		<div id="navigation" class="active">
+			<!-- Navigation Menu-->
+			<ul style="text-align: right;" class="navigation-menu">
+				{% if user.is_staff %}
+					<li class="last-elements"> <a href="/control_panel/">کنترل پنل</a>
+				{% endif %}
+				<li class="has-submenu"><a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
+					<ul class="submenu first-level">
+						<li><a href="/pricing/">قیمت ها</a>
+						</li>
+						<li><a href="/our-team/">گروه ما</a>
+						</li>
+						{% if not user.is_authenticated %}
+							<li><a href="/login/">ورود</a>
+							</li>
+							<li><a href="/signup/">ثبت نام</a>
+							</li>
+						{% endif %}
+						<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span
+								class="submenu-arrow"></span>
+							<ul class="submenu level-second">
+								<li><a href="/blog-grid/">شبکه وبلاگ</a>
+								</li>
+								<li><a href="/blog-left-sidebar/">وبلاگ سمت چپ</a>
+								</li>
+								<li><a href="/blog-right-sidebar/">وبلاگ سمت راست نوار</a>
+								</li>
+								<li><a href="/blog-detail/">جزئیات وبلاگ</a>
+								</li>
+							</ul>
+						</li>
+						<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span
+								class="submenu-arrow"></span>
+							<ul class="submenu">
+								<li><a href="/portfolio-grid/">شبکه پروژه ها</a>
+								</li>
+								<li><a href="/portfolio-grid-gallery/">گالری پروژه ها</a>
+								</li>
+								<li><a href="/portfolio-details/">جزئیات پروژه ها</a>
+								</li>
+							</ul>
+						</li>
+						{% if user.is_authenticated %}
+							<li><a href="/logout/">خروج</a>
+							</li>
+						{% endif %}
+					</ul>
+				</li>
+				<li class="last-elements"><a href="/contact-us/">تماس با ما</a>
+				</li>
+				<li><a href="/our-services/">خدمات ما</a>
+				</li>
+				<li><a href="/about-us/">درباره ما</a>
+				</li>
+				<li class="has-submenu"><a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
+					<ul class="submenu">
+						<li><a href="/">صفحه نخست 1</a>
+						</li>
+						<li><a href="/homepage2/">صفحه نخست 2</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--end navigation menu-->
+		</div>
+		<!--end navigation-->
 	</div>
-	<!--======================================
-        NAVIGATION AREA
-    ======================================-->
-	<header id="topnav" class="defaultscroll sticky active">
-		<div class="container">
-			<!-- Logo container-->
-			<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
-			</div>
-			{% if user.is_authenticated %}
-				<div class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
-				</div>
-			{% else %}
-				<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
-				</div>
-			{% endif %}
-			<!--end login button-->
-			<!-- End Logo container-->
-			<div class="menu-extras">
-				<div class="menu-item">
-					<!-- Mobile menu toggle-->
-					<a class="navbar-toggle">
-						<div class="lines"><span></span>
-							<span></span>
-							<span></span>
-						</div>
-					</a>
-					<!-- End mobile menu toggle-->
-				</div>
-			</div>
-			<div id="navigation" class="active">
-				<!-- Navigation Menu-->
-				<ul style="text-align: right;" class="navigation-menu">
-					{% if user.is_staff %}
-						<li class="last-elements"> <a href="/control_panel/">کنترل پنل</a>
-					{% endif %}
-					<li class="has-submenu"><a href="javascript:void(0)">صفحات</a><span class="menu-arrow"></span>
-						<ul class="submenu first-level">
-							<li><a href="/pricing/">قیمت ها</a>
+	<!--end container-->
+</header>
+<!--======================================
+	END/NAVIGATION AREA
+======================================-->
+<!--======================================
+	PAGE BANNER
+======================================-->
+<section class="section-padding breadcrumb-area px-breadcrumb-bg d-flex align-items-center p-relative"
+		 data-background="https://via.placeholder.com/1920x450">
+	<div class="overlay-bg-light"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="px-breadcrumb-wrap text-center">
+					<h2>Blog Grid</h2>
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a>
 							</li>
-							<li><a href="/our-team/">گروه ما</a>
-							</li>
-							{% if not user.is_authenticated %}
-								<li><a href="/login/">ورود</a>
-								</li>
-								<li><a href="/signup/">ثبت نام</a>
-								</li>
-							{% endif %}
-							<li class="has-submenu"><a href="javascript:void(0)">وبلاگ</a><span
-									class="submenu-arrow"></span>
-								<ul class="submenu level-second">
-									<li><a href="/blog-grid/">شبکه وبلاگ</a>
-									</li>
-									<li><a href="/blog-left-sidebar/">وبلاگ سمت چپ</a>
-									</li>
-									<li><a href="/blog-right-sidebar/">وبلاگ سمت راست نوار</a>
-									</li>
-									<li><a href="/blog-detail/">جزئیات وبلاگ</a>
-									</li>
-								</ul>
-							</li>
-							<li class="has-submenu"><a href="javascript:void(0)">پروژه ها</a><span
-									class="submenu-arrow"></span>
-								<ul class="submenu">
-									<li><a href="/portfolio-grid/">شبکه پروژه ها</a>
-									</li>
-									<li><a href="/portfolio-grid-gallery/">گالری پروژه ها</a>
-									</li>
-									<li><a href="/portfolio-details/">جزئیات پروژه ها</a>
-									</li>
-								</ul>
-							</li>
-							{% if user.is_authenticated %}
-								<li><a href="/logout/">خروج</a>
-								</li>
-							{% endif %}
-						</ul>
-					</li>
-					<li class="last-elements"><a href="/contact-us/">تماس با ما</a>
-					</li>
-					<li><a href="/our-services/">خدمات ما</a>
-					</li>
-					<li><a href="/about-us/">درباره ما</a>
-					</li>
-					<li class="has-submenu"><a href="javascript:void(0)">خانه</a><span class="menu-arrow"></span>
-						<ul class="submenu">
-							<li><a href="/">صفحه نخست 1</a>
-							</li>
-							<li><a href="/homepage2/">صفحه نخست 2</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<!--end navigation menu-->
-			</div>
-			<!--end navigation-->
-		</div>
-		<!--end container-->
-	</header>
-	<!--======================================
-        END/NAVIGATION AREA
-    ======================================-->
-	<!--======================================
-        PAGE BANNER
-    ======================================-->
-	<section class="section-padding breadcrumb-area px-breadcrumb-bg d-flex align-items-center p-relative" data-background="https://via.placeholder.com/1920x450">
-		<div class="overlay-bg-light"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="px-breadcrumb-wrap text-center">
-						<h2>Blog Grid</h2>
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Home</a>
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">Blog Grid</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-        END / PAGE BANNER
-    ======================================-->
-	<!--======================================
-              OUR BLOG SECTIONS
-      ======================================-->
-	<section class="section-padding px-blog-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Jackson Jim</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Business</li>
-									<li class="px-article--featured-category-list">Startup</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Simon Jackson</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Technology</li>
-									<li class="px-article--featured-category-list">Industery</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Luthor</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Corporate</li>
-									<li class="px-article--featured-category-list">Business</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Jackson Jim</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Business</li>
-									<li class="px-article--featured-category-list">Startup</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Simon Jackson</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Technology</li>
-									<li class="px-article--featured-category-list">Industery</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="px-article--link single-post">
-						<div class="px-article--item px-article-item--1 mb-30">
-							<figure class="px-article-item--image blog-thumb">
-								<img src="https://via.placeholder.com/286x171" alt="image">
-								<div class="px-article--date"> <span><i class="fas fa-clock"></i> 14 May 2020</span>
-									<span><i class="fas fa-user-alt"></i> Luthor</span>
-								</div>
-							</figure>
-							<article class="px-article--content blog-content">
-								<ul class="px-article--featured-category mb-20">
-									<li class="px-article--featured-category-list">Corporate</li>
-									<li class="px-article--featured-category-list">Business</li>
-								</ul>
-								<h2 class="px-article--title">
-                  <a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
-                </h2>
-								<div class="icon"> <a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
-								</div>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-12 col-md-12">
-					<div class="pagination-area"> <a href="#" class="prev page-numbers"><i class="fas fa-angle-double-left"></i></a>
-						<a href="#" class="page-numbers">1</a>
-						<span class="page-numbers current" aria-current="page">2</span>
-						<a href="#" class="page-numbers">3</a>
-						<a href="#" class="page-numbers">4</a>
-						<a href="#" class="next page-numbers"><i class="fas fa-angle-double-right"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--======================================
-            END / OUR BLOG SECTIONS
-  ======================================-->
-	<!--======================================
-            OUR PARTNERS SECTIONS
-  ======================================-->
-	<div class="section-padding px-partners-section bg-primary-color p-relative">
-		<div class="container-fluid">
-			<div class="px-partner-slider">
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
-				</div>
-				<div class="px-partner-item">
-					<div class="px-partner-img">
-						<img src="https://via.placeholder.com/183x44" alt="">
-					</div>
+							<li class="breadcrumb-item active" aria-current="page">Blog Grid</li>
+						</ol>
+					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--======================================
-            END / OUR PARTNERS SECTIONS
+</section>
+<!--======================================
+	END / PAGE BANNER
+======================================-->
+<!--======================================
+		  OUR BLOG SECTIONS
   ======================================-->
-	<!--======================================
-            FOOTER
-  ======================================-->
-	<footer class="px-footer footer-style-1 section-padding bg-carbon-black pb-0">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="px-footer-about-us">
-						<div> <a class="logo" href="/">Prixto<span class="text-primary">.</span></a>
-						</div>
-						<p class="text-white mt-20">Sartorial probably haven't heard bout them umami portland. Sustainable, croix la dollar salvia probably haven't bottle pinterest.</p>
-						<ul class="px-footer-social-icons">
-							<li><a href="#"><i class="fab fa-facebook"></i></a>
-							</li>
-							<li><a href="#"><i class="fab fa-twitter"></i></a>
-							</li>
-							<li><a href="#"><i class="fab fa-linkedin"></i></a>
-							</li>
-							<li><a href="#"><i class="fab fa-behance"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-rss"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div style="text-align: right;" class="px-footer-useful-links">
-						<h6>لینک های مفید</h6>
-						<div class="row">
-							<div class="col-lg-6">
-								<ul>
-									<li><a href="#">راهنمایی</a>
-									</li>
-									<li><a href="#">شرایط و ضوابط</a>
-									</li>
-									<li><a href="#">حریم خصوصی</a>
-									</li>
-								</ul>
+<section class="section-padding px-blog-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Jackson Jim</span>
 							</div>
-							<div class="col-lg-6">
-								<ul>
-									<li><a href="#">درباره ما</a>
-									</li>
-									<li><a href="#">خدمات ما</a>
-									</li>
-									<li><a href="#">مشتریان ما</a>
-									</li>
-									<li><a href="#">تماس با ما</a>
-									</li>
-								</ul>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Business</li>
+								<li class="px-article--featured-category-list">Startup</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="px-footer-subscribe-newsletters">
-						<h6>Subscribe Newsletters</h6>
-						<p class="text-white mt-20">Sartorial probably haven't heard them umami portland sustainable, croix la dollar toast .</p>
-						<form action="#">
-							<input type="email" placeholder="Enter your email address.." required="" class="mb-20">
-							<button class="px-btn px-btn-primary">Subscribe Now</button>
-						</form>
+						</article>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="px-footer-copyright">
-						<p class="text-white">© 2020 <a href="http://www.webzonethemes.com/">Webzonethemes</a>. All Rights Reserved.</p>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Simon Jackson</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Technology</li>
+								<li class="px-article--featured-category-list">Industery</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
 					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Luthor</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Corporate</li>
+								<li class="px-article--featured-category-list">Business</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Jackson Jim</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Business</li>
+								<li class="px-article--featured-category-list">Startup</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Simon Jackson</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Technology</li>
+								<li class="px-article--featured-category-list">Industery</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="px-article--link single-post">
+					<div class="px-article--item px-article-item--1 mb-30">
+						<figure class="px-article-item--image blog-thumb">
+							<img src="https://via.placeholder.com/286x171" alt="image">
+							<div class="px-article--date"><span><i class="fas fa-clock"></i> 14 May 2020</span>
+								<span><i class="fas fa-user-alt"></i> Luthor</span>
+							</div>
+						</figure>
+						<article class="px-article--content blog-content">
+							<ul class="px-article--featured-category mb-20">
+								<li class="px-article--featured-category-list">Corporate</li>
+								<li class="px-article--featured-category-list">Business</li>
+							</ul>
+							<h2 class="px-article--title">
+								<a href="/blog-detail/"> چرا برای خلاقیت باید به جنگل بروید</a>
+							</h2>
+							<div class="icon"><a href="/blog-left-sidebar/" tabindex="0">بیشتر بخوانید</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12">
+				<div class="pagination-area"><a href="#" class="prev page-numbers"><i
+						class="fas fa-angle-double-left"></i></a>
+					<a href="#" class="page-numbers">1</a>
+					<span class="page-numbers current" aria-current="page">2</span>
+					<a href="#" class="page-numbers">3</a>
+					<a href="#" class="page-numbers">4</a>
+					<a href="#" class="next page-numbers"><i class="fas fa-angle-double-right"></i></a>
 				</div>
 			</div>
 		</div>
-	</footer>
-	<!--======================================
-            END / FOOTER SECTION
-  ======================================-->
-	<!-- Model -->
-	<div id="video-overlay" class="video-overlay"> <a class="video-overlay-close">&times;</a>
 	</div>
-	<!-- /END/Model -->
-	<!-- Place all Scripts Here -->
-	<!-- jQuery -->
-	<script src="{% static 'web_01/js/jquery.min.js' %}"></script>
-	<!-- Popper -->
-	<script src="{% static 'web_01/js/popper.min.js' %}"></script>
-	<!-- Bootstrap -->
-	<script src="{% static 'web_01/js/bootstrap.min.js' %}"></script>
-	<!-- Isotope Gallery -->
-	<script src="{% static 'web_01/js/isotope.min.js' %}"></script>
-	<!-- Nice-Select JS -->
-	<script src="{% static 'web_01/js/jquery.nice-select.min.js' %}"></script>
-	<!-- Waypoints JS -->
-	<script src="{% static 'web_01/js/jquery.waypoints.min.js' %}"></script>
-	<!-- Counter Jquery -->
-	<script src="{% static 'web_01/js/jquery.counterup.js' %}"></script>
-	<!-- Slick Slider -->
-	<script src="{% static 'web_01/js/slick.min.js' %}"></script>
-	<!-- sticky sidebar -->
-	<script src="{% static 'web_01/js/sticksy.js' %}"></script>
-	<!-- Theme Functions Js -->
-	<script src="{% static 'web_01/js/theme-functions.js' %}"></script>
-	<!-- /Place all Scripts Here -->
+</section>
+<!--======================================
+		END / OUR BLOG SECTIONS
+======================================-->
+<!--======================================
+		OUR PARTNERS SECTIONS
+======================================-->
+<div class="section-padding px-partners-section bg-primary-color p-relative">
+	<div class="container-fluid">
+		<div class="px-partner-slider">
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+			<div class="px-partner-item">
+				<div class="px-partner-img">
+					<img src="https://via.placeholder.com/183x44" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--======================================
+		END / OUR PARTNERS SECTIONS
+======================================-->
+<!--======================================
+		FOOTER
+======================================-->
+<footer class="px-footer footer-style-1 section-padding bg-carbon-black pb-0">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="px-footer-about-us">
+					<div><a class="logo" href="/">Prixto<span class="text-primary">.</span></a>
+					</div>
+					<p class="text-white mt-20">Sartorial probably haven't heard bout them umami portland. Sustainable,
+												croix la dollar salvia probably haven't bottle pinterest.</p>
+					<ul class="px-footer-social-icons">
+						<li><a href="#"><i class="fab fa-facebook"></i></a>
+						</li>
+						<li><a href="#"><i class="fab fa-twitter"></i></a>
+						</li>
+						<li><a href="#"><i class="fab fa-linkedin"></i></a>
+						</li>
+						<li><a href="#"><i class="fab fa-behance"></i></a>
+						</li>
+						<li><a href="#"><i class="fa fa-rss"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div style="text-align: right;" class="px-footer-useful-links">
+					<h6>لینک های مفید</h6>
+					<div class="row">
+						<div class="col-lg-6">
+							<ul>
+								<li><a href="#">راهنمایی</a>
+								</li>
+								<li><a href="#">شرایط و ضوابط</a>
+								</li>
+								<li><a href="#">حریم خصوصی</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-lg-6">
+							<ul>
+								<li><a href="#">درباره ما</a>
+								</li>
+								<li><a href="#">خدمات ما</a>
+								</li>
+								<li><a href="#">مشتریان ما</a>
+								</li>
+								<li><a href="#">تماس با ما</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="px-footer-subscribe-newsletters">
+					<h6>Subscribe Newsletters</h6>
+					<p class="text-white mt-20">Sartorial probably haven't heard them umami portland sustainable, croix
+												la dollar toast .</p>
+					<form action="#">
+						<input type="email" placeholder="Enter your email address.." required="" class="mb-20">
+						<button class="px-btn px-btn-primary">Subscribe Now</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="px-footer-copyright">
+					<p class="text-white">© 2020 <a href="http://www.webzonethemes.com/">Webzonethemes</a>. All Rights
+										  Reserved.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<!--======================================
+		END / FOOTER SECTION
+======================================-->
+<!-- Model -->
+<div id="video-overlay" class="video-overlay"><a class="video-overlay-close">&times;</a>
+</div>
+<!-- /END/Model -->
+<!-- Place all Scripts Here -->
+<!-- jQuery -->
+<script src="{% static 'web_01/js/jquery.min.js' %}"></script>
+<!-- Popper -->
+<script src="{% static 'web_01/js/popper.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'web_01/js/bootstrap.min.js' %}"></script>
+<!-- Isotope Gallery -->
+<script src="{% static 'web_01/js/isotope.min.js' %}"></script>
+<!-- Nice-Select JS -->
+<script src="{% static 'web_01/js/jquery.nice-select.min.js' %}"></script>
+<!-- Waypoints JS -->
+<script src="{% static 'web_01/js/jquery.waypoints.min.js' %}"></script>
+<!-- Counter Jquery -->
+<script src="{% static 'web_01/js/jquery.counterup.js' %}"></script>
+<!-- Slick Slider -->
+<script src="{% static 'web_01/js/slick.min.js' %}"></script>
+<!-- sticky sidebar -->
+<script src="{% static 'web_01/js/sticksy.js' %}"></script>
+<!-- Theme Functions Js -->
+<script src="{% static 'web_01/js/theme-functions.js' %}"></script>
+<!-- /Place all Scripts Here -->
 </body>
 </html>
