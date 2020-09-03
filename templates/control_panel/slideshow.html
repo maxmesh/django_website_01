@@ -277,7 +277,7 @@
 										<div class="form-group">
 											<form method="POST" enctype="multipart/form-data">
 												{% csrf_token %}
-												<button style="float: right;" class="btn btn-primary" type="submit"
+												<button style="float: right;" class="btn btn-danger" type="submit"
 														value="{{ slide.object.id }}" name="remove-slide">Remove
 																										  This
 																										  Slide
@@ -301,7 +301,8 @@
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="inputGroupFile01"
 												   aria-describedby="inputGroupFileAddon01" name="slide-img">
-											<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+											<label class="custom-file-label"
+												   for="inputGroupFile01">{{ slide.object.slide_img.name }}</label>
 										</div>
 									</div>
 									<div class="form-row">
@@ -324,13 +325,13 @@
 												{% if forloop.counter != 1 %}
 													<button class="btn btn-primary" type="submit"
 															value="{{ slide.object.id }}"
-															name="m-u">Move Up
+															name="m-u"><a class="fa fa-angle-up"></a>
 													</button>
 												{% endif %}
 												{% if forloop.counter != slideshow|length %}
-													<button class="btn btn-primary" type="submit"
+													<button class="btn btn-primary mt-1" type="submit"
 															value="{{ slide.object.id }}"
-															name="m-d">Move Down
+															name="m-d"><a class="fa fa-angle-down"></a>
 													</button>
 												{% endif %}
 											</div>
@@ -353,7 +354,7 @@
 				<div class="container-fluid">
 					<form method="POST" enctype="multipart/form-data">
 						{% csrf_token %}
-						<button type="submit" class="btn btn-primary btn-lg btn-block mb-5" name="Add-new-slide">Add
+						<button type="submit" class="btn btn-success btn-lg btn-block mb-5" name="Add-new-slide">Add
 																												 New
 																												 Slide
 																												 Page

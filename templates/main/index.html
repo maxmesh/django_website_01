@@ -208,24 +208,33 @@
 					</div>
 				</div>
 			</div>
-			<div class="row pt-80 px-custom">
-				<div class="col-xl-6 col-lg-6">
-					<div class="px-intro-block-img">
-						<img src="https://via.placeholder.com/450x400" alt="img" class="img-fluid mx-auto d-block">
-						<a id="play-video" class="video-play-button" href="#"> <span></span>
-						</a>
-					</div>
+			{% for video in videos %}
+				<div class="row pt-80 px-custom">
+					{% if video.video_R_dir %}
+					{% else %}
+						<div class="col-xl-6 col-lg-6">
+							<div class="px-intro-block-img">
+								<img src="{{ video.cover_img.url }}" alt="img" class="img-fluid mx-auto d-block">
+								<a id="play-video" name="{{ video.id }}" class="video-play-button"
+								   href="{{ video.video_url }}">
+									<span></span>
+								</a>
+							</div>
+						</div>
+						<div class="col-xl-6 col-lg-6 align-self-center">
+							<div class="px-into-block-content">
+								<h4 class="px-intro-block-title fw-600">{{ video.video_title }}</h4>
+								<p>
+									{% for sentences in video.video_description %}
+										{{ sentences }}
+										<br/>
+									{% endfor %}
+								</p>
+							</div>
+						</div>
+					{% endif %}
 				</div>
-				<div class="col-xl-6 col-lg-6 align-self-center">
-					<div class="px-into-block-content">
-						<h4 class="px-intro-block-title fw-600">ما به شما کمک می کنیم تا ایده خود را به بازار معرفی کنید</h4>
-						<p>این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-						<p>این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-					</div>
-					<div class="px-btn-block"> <a href="#" class="px-btn px-btn-primary">ادامه مطلب</a>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</section>
 	<!--======================================
@@ -682,24 +691,30 @@
 						<h4 class="grey-color">استارتاپ ها</h4>
 						<span class="price grey-color"><i>$</i>129</span>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>1 GB Photos</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>1 GB Photos</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Secure Online Transfer</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Secure Online Transfer</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Unlimited Styles</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Unlimited Styles</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Customer Service</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Customer Service</span>
 								<i class="far fa-times-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Manual Backup</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Manual Backup</span>
 								<i class="far fa-times-circle icon-min text-left"></i>
 							</li>
 						</ul>
 						<div class="mt-20">
-							<a href="#contact" class="btn mx-auto px-btn px-btn-primary"><i class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
+							<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
+									class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
 						</div>
 					</div>
 				</div>
@@ -711,24 +726,30 @@
 						<h4 class="grey-color">کسب و کار</h4>
 						<span class="price grey-color"><i>$</i>549</span>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>1 GB Photos</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>1 GB Photos</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Secure Online Transfer</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Secure Online Transfer</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Unlimited Styles</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Unlimited Styles</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Customer Service</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Customer Service</span>
 								<i class="far fa-times-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Manual Backup</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Manual Backup</span>
 								<i class="far fa-times-circle icon-min text-left"></i>
 							</li>
 						</ul>
 						<div class="mt-20">
-							<a href="#contact" class="btn mx-auto px-btn px-btn-primary"><i class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
+							<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
+									class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
 						</div>
 					</div>
 				</div>
@@ -740,24 +761,30 @@
 						<h4 class="grey-color">شرکت های بزرگ</h4>
 						<span class="price grey-color"><i>$</i>859</span>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>1 GB Photos</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>1 GB Photos</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Secure Online Transfer</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Secure Online Transfer</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Unlimited Styles</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Unlimited Styles</span>
 								<i class="far fa-check-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Customer Service</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Customer Service</span>
 								<i class="far fa-times-circle icon-min text-left"></i>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center text-left"> <span>Manual Backup</span>
+							<li class="list-group-item d-flex justify-content-between align-items-center text-left">
+								<span>Manual Backup</span>
 								<i class="far fa-times-circle icon-min text-left"></i>
 							</li>
 						</ul>
 						<div class="mt-20">
-							<a href="#contact" class="btn mx-auto px-btn px-btn-primary"><i class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
+							<a href="contact/" class="btn mx-auto px-btn px-btn-primary"><i
+									class="icon-arrow-right-circle"></i>انتخاب برنامه</a>
 						</div>
 					</div>
 				</div>

@@ -12,6 +12,7 @@
 	<link href="{% static 'cpanel/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 		  rel="stylesheet">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<!-- Custom styles for this template-->
 	<link href="{% static 'cpanel/css/sb-admin-2.min.css' %}" rel="stylesheet">
 </head>
@@ -227,63 +228,183 @@
 					</div>
 				{% endfor %}
 				<!-- Videos -->
-				<div class="container-fluid">
-					<div class="card shadow my-5">
-						<div class="card-header py-3">
-							<p class="text-primary m-0 font-weight-bold">Video 1</p>
-						</div>
-						<div class="card-body">
-							<form method="POST">
-								{% csrf_token %}
-								<div class="form-row my-2">
-									<div class="col">
-										<div class="embed-responsive embed-responsive-16by9">
-											<iframe class="embed-responsive-item"
-													src="https://www.youtube.com/embed/17MBllYf6OY"
-													allowfullscreen></iframe>
-										</div>
-									</div>
-									<div class="col">
-										<div class="form-group"><label><strong>Video
-																			   Title</strong></label><input
-												class="form-control" type="text" placeholder="Tilte" name="slide-title">
-										</div>
-										<div class="form-group"><label><strong>Video
-																			   Description</strong></label><textarea
-												class="form-control" rows="8" placeholder="This video is about"
-												name="signature"></textarea></div>
-									</div>
-								</div>
-								<div class="form-row my-2">
-									<div class="col">
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="basic-addon1">url</span>
-											</div>
-											<input type="text" class="form-control" placeholder="https://www.youtube.com/embed/17MBllYf6OY"
-												   aria-label="Username" aria-describedby="basic-addon1">
-										</div>
-									</div>
-								</div>
-								<div class="form-row mt-5">
+				{% for video in videos %}
+					<div class="container-fluid">
+						<div class="card shadow my-5">
+							<div class="card-header py-3">
+								<div class="form-row">
+									<span class="text-primary mt-2 text-md-center font-weight-bold mr-2">Video {{ forloop.counter }}</span>
+									<form id="RoL{{ video.id }}" method="POST">
+										{% csrf_token %}
+										<input type="checkbox" onchange="submit_it({{ video.id }})" id="toggle"
+											   data-toggle="toggle" data-on="L"
+											   data-off="R" {% if not video.video_R_dir %}checked{% endif %}>
+										<input class="d-none" type="text" value="{{ video.id }}" name="r-l">
+									</form>
 									<div class="col">
 										<div class="form-group">
-											<button style="float: right;" class="btn btn-primary" type="submit">Save
-											</button>
+											<form method="POST" enctype="multipart/form-data">
+												{% csrf_token %}
+												<button style="float: right;" class="btn btn-danger" type="submit"
+														value="{{ video.id }}" name="remove-video">Remove
+																								   This
+																								   Video
+												</button>
+											</form>
 										</div>
 									</div>
 								</div>
-							</form>
+							</div>
+							<div class="card-body">
+								<form method="POST">
+									{% csrf_token %}
+									{% if video.video_R_dir %}
+										<div class="form-row my-2">
+											<div class="col">
+												<div class="form-group"><label><strong>Video
+																					   Title</strong></label><input
+														class="form-control" type="text"
+														placeholder="{{ video.video_title }}"
+														name="video-title">
+												</div>
+												<div class="form-group"><label><strong>Video
+																					   Description</strong></label><textarea
+														class="form-control" rows="17"
+														placeholder="{{ video.video_description }}"
+														name="video-description"></textarea></div>
+												<div class="input-group mb-3">
+													<div class="input-group-prepend">
+														<span class="input-group-text"
+															  id="basic-addon1">video url</span>
+													</div>
+													<input type="text" class="form-control"
+														   placeholder="{{ video.video_url }}"
+														   aria-label="Username" aria-describedby="basic-addon1"
+														   name="video-url">
+												</div>
+											</div>
+											<div class="col">
+												<label class="text-gray-700"><strong>Video Display
+																					 Image</strong></label>
+												<img class="d-block w-100" src="{{ video.cover_img.url }}"
+													 alt="First slide">
+												<div class="input-group mt-2">
+													<div class="custom-file">
+														<input type="file" class="custom-file-input"
+															   id="inputGroupFile01"
+															   aria-describedby="inputGroupFileAddon01"
+															   name="cover-img">
+														<label class="custom-file-label"
+															   for="inputGroupFile01">{{ video.cover_img.name }}</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-row mt-5">
+											<div class="col">
+												<div class="form-group">
+													{% if forloop.counter != 1 %}
+														<button class="btn btn-primary" type="submit"
+																value="{{ video.id }}"
+																name="m-u"><a class="fa fa-angle-up"></a>
+														</button>
+													{% endif %}
+													{% if forloop.counter != videos|length %}
+														<button class="btn btn-primary mt-1" type="submit"
+																value="{{ video.id }}"
+																name="m-d"><a class="fa fa-angle-down"></a>
+														</button>
+													{% endif %}
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+													<button style="float: right;" class="btn btn-primary"
+															value="{{ video.id }}" type="submit" name="save">Save
+													</button>
+												</div>
+											</div>
+										</div>
+									{% else %}
+										<div class="form-row my-2">
+											<div class="col">
+												<label class="text-gray-700"><strong>Video Display
+																					 Image</strong></label>
+												<img class="d-block w-100" src="{{ video.cover_img.url }}"
+													 alt="First slide">
+												<div class="input-group mt-2">
+													<div class="custom-file">
+														<input type="file" class="custom-file-input"
+															   id="inputGroupFile01"
+															   aria-describedby="inputGroupFileAddon01"
+															   name="cover-img">
+														<label class="custom-file-label"
+															   for="inputGroupFile01">{{ video.cover_img.name }}</label>
+													</div>
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group"><label><strong>Video
+																					   Title</strong></label><input
+														class="form-control" type="text"
+														placeholder="{{ video.video_title }}"
+														name="video-title">
+												</div>
+												<div class="form-group"><label><strong>Video
+																					   Description</strong></label><textarea
+														class="form-control" rows="17"
+														placeholder="{{ video.video_description }}"
+														name="video-description"></textarea></div>
+												<div class="input-group mb-3">
+													<div class="input-group-prepend">
+														<span class="input-group-text"
+															  id="basic-addon1">video url</span>
+													</div>
+													<input type="text" class="form-control"
+														   placeholder="{{ video.video_url }}"
+														   aria-label="Username" aria-describedby="basic-addon1"
+														   name="video-url">
+												</div>
+											</div>
+										</div>
+										<div class="form-row mt-5">
+											<div class="col">
+												<div class="form-group">
+													{% if forloop.counter != 1 %}
+														<button class="btn btn-primary" type="submit"
+																value="{{ video.id }}"
+																name="m-u"><a class="fa fa-angle-up"></a>
+														</button>
+													{% endif %}
+													{% if forloop.counter != videos|length %}
+														<button class="btn btn-primary mt-1" type="submit"
+																value="{{ video.id }}"
+																name="m-d"><a class="fa fa-angle-down"></a>
+														</button>
+													{% endif %}
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+													<button style="float: right;" class="btn btn-primary"
+															value="{{ video.id }}" type="submit" name="save">Save
+													</button>
+												</div>
+											</div>
+										</div>
+									{% endif %}
+								</form>
+							</div>
 						</div>
 					</div>
-				</div>
+				{% endfor %}
 				<!-- Add new video button -->
 				<div class="container-fluid">
 					<form method="POST">
 						{% csrf_token %}
-						<button type="submit" class="btn btn-primary btn-lg btn-block mb-5" name="Add-new-slider">Add
-																												  New
-																												  Video
+						<button type="submit" class="btn btn-success btn-lg btn-block mb-5" name="Add-new-video">Add
+																												 New
+																												 Video
 						</button>
 					</form>
 				</div>
@@ -333,5 +454,11 @@
 <!-- Page level custom scripts -->
 <script src="{% static 'cpanel/js/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'cpanel/js/demo/chart-pie-demo.js' %}"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+	function submit_it(id) {
+		document.getElementById("RoL" + id).submit();
+	}
+</script>
 </body>
 </html>

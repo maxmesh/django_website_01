@@ -241,13 +241,13 @@
 							<form method="POST">
 								{% csrf_token %}
 								<div class="form-row">
-									<div class="col">
+									<div class="col-lg-6 col-md-6 form-group">
 										<div class="form-group"><label for="first_name"><strong>First
 											Name</strong></label><input class="form-control" type="text"
 																		placeholder="{{ user_to_change.first_name }}"
 																		name="first-name"></div>
 									</div>
-									<div class="col">
+									<div class="col-lg-6 col-md-6 form-group">
 										<div class="form-group"><label for="last_name"><strong>Last
 											Name</strong></label><input class="form-control" type="text"
 																		placeholder="{{ user_to_change.last_name }}"
@@ -255,13 +255,13 @@
 									</div>
 								</div>
 								<div class="form-row">
-									<div class="col">
+									<div class="col-lg-6 col-md-6 form-group">
 										<div class="form-group"><label for="email"><strong>Email
 											Address</strong></label><input class="form-control" type="email"
 																		   placeholder="{{ user_to_change.email }}"
 																		   name="email"></div>
 									</div>
-									<div class="col">
+									<div class="col-lg-6 col-md-6 form-group">
 										<div class="form-group"><label
 												for="username"><strong>Username</strong></label><input
 												class="form-control" type="text"
@@ -288,7 +288,7 @@
 							<form method="POST">
 								{% csrf_token %}
 								<div class="form-row">
-									<div class="col">
+									<div class="col-lg-4 col-md-4 form-group">
 										<div class="form-group">
 											<div class="custom-control custom-checkbox my-2">
 												<input type="checkbox" class="custom-control-input" id="checkbox-1" name="is-active" {% if user_to_change.is_active %}checked{% endif %}>
@@ -296,7 +296,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col">
+									<div class="col-lg-4 col-md-4 form-group">
 										<div class="form-group">
 											<div class="custom-control custom-checkbox my-2">
 												<input type="checkbox" class="custom-control-input" id="checkbox-2" name="is-staff-status" {% if user_to_change.is_staff %}checked{% endif %}>
@@ -304,7 +304,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col">
+									<div class="col-lg-4 col-md-4 form-group">
 										<div class="form-group">
 											<div class="custom-control custom-checkbox my-2">
 												<input type="checkbox" class="custom-control-input" id="checkbox-3" value="true" name="is-superuser-status" {% if user_to_change.is_superuser %}checked{% endif %}>

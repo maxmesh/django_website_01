@@ -1,64 +1,38 @@
 import os
-import shutil
-
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
-from django.conf import settings
 
-from .models import site_title,slideshow
+from .models import site_title,slideshow,video
 def index(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/index.html',{'messages':messages})
 def users(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
-	# region get all users data
 	users=User.objects.all()
 	# endregion
 	return render(request,'control_panel/users.html',{'users':users,'messages':messages})
 def change_user_data(request,id):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
-	# region check if user that we wanna change exists
 	if not User.objects.filter(id=id).exists():
 		return redirect('/control_panel/auth/users/')
-	# endregion
 	if request.method=='POST':
-		# region save user settings
 		if request.POST.get('first-name') is not None:
-			# region check if user is superuser
 			if not request.user.is_superuser:
 				message={'type':'error','body':'You Don\'t Have Permission To Change Users Data.'}
 				messages.append(message)
 			else:
-				# endregion
-				# region get user to change
 				user_to_change=User.objects.get(id=id)
-				# endregion
-				# region get user data
 				first_name=request.POST.get('first-name')
 				last_name=request.POST.get('last-name')
 				email=request.POST.get('email')
 				username=request.POST.get('username')
-				# endregion
-				# region check user data
 				if email is not None and email!='':
 					if '@' not in email or '.' not in email:
 						message={'type':'error','body':' Email Is Not Valid.'}
@@ -73,8 +47,6 @@ def change_user_data(request,id):
 							username=username).username!=user_to_change.username:
 						message={'type':'error','body':' Username Is Used.'}
 						messages.append(message)
-				# endregion
-				# region new user registration
 				allow_to_update_user=True
 				for message in messages:
 					if message.get('type')=='error':
@@ -94,40 +66,25 @@ def change_user_data(request,id):
 					else:
 						message={'type':'success','body':' User Was Updated Successfully.'}
 					messages.append(message)
-		# endregion
-		# region delete
 		elif request.POST.get('delete') is not None:
-			# region check if user is superuser
 			if not request.user.is_superuser:
 				message={'type':'error','body':'You Don\'t Have Permission To Change Users Data.'}
 				messages.append(message)
 			else:
-				# endregion
-				# region delete the user
 				user_to_delete=User.objects.get(id=id)
 				user_to_delete.delete()
-		# endregion
-		# region ignore
 		elif request.POST.get('Ignore') is not None:
 			print('Ignore')
 			return redirect('/control_panel/auth/users/')
-		# endregion
 		else:
-			# region check if user is superuser
 			if not request.user.is_superuser:
 				message={'type':'error','body':'You Don\'t Have Permission To Change Users Data.'}
 				messages.append(message)
-			# endregion
 			else:
-				# region get user to change
 				user_to_change=User.objects.get(id=id)
-				# endregion
-				# region get user data
 				is_active=request.POST.get('is-active') is not None
 				is_staff_status=request.POST.get('is-staff-status') is not None
 				is_superuser_status=request.POST.get('is-superuser-status') is not None
-				# endregion
-				# region save user data
 				if user_to_change.is_active==is_active and user_to_change.is_staff==is_staff_status and user_to_change.is_superuser==is_superuser_status:
 					message={'type':'info','body':' There Were No Changes To Save.'}
 					messages.append(message)
@@ -138,13 +95,11 @@ def change_user_data(request,id):
 				user_to_change.is_staff=is_staff_status
 				user_to_change.is_superuser=is_superuser_status
 				user_to_change.save()
-	# endregion
 	try:
 		user_to_change=User.objects.get(id=id)
 		return render(request,'control_panel/change-user-data.html',
 		              {'user_to_change':user_to_change,'messages':messages})
 	except:
-		# endregion
 		return redirect('/control_panel/auth/users/')
 def create_new_user(request):
 	if not request.user.is_staff:
@@ -210,8 +165,6 @@ def create_new_user(request):
 				if re_password!=password:
 					message={'type':'error','body':' The Two Password Fields Didn’t Match.'}
 					messages.append(message)
-			# endregion
-			# region new user registration
 			allow_to_create_user=True
 			for message in messages:
 				if message.get('type')=='error':
@@ -230,21 +183,26 @@ def create_new_user(request):
 				user.save()
 				message={'type':'success','body':' User Was Created Successfully.'}
 				messages.append(message)
-	# endregion
 	return render(request,'control_panel/create-new-user.html',{'messages':messages})
 def groups(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/groups.html',{'messages':messages})
 def site_title_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
+	if len(site_title.objects.all())==0:
+		site_title.objects.create()
+	elif len(site_title.objects.all())>1:
+		for obj in site_title.objects.all():
+			if obj.id!=1:
+				if obj.title_icon.path.find('\\default.png')==-1 and obj.title_icon.path.find(
+						'/default.png')==-1:
+					if os.path.isfile(obj.title_icon.path):
+						os.remove(obj.title_icon.path)
+				obj.delete()
 	if request.method=="POST":
 		id=request.POST.get('save')
 		title=request.POST.get('title')
@@ -255,15 +213,10 @@ def site_title_(request):
 			message={'type':'success','body':' Your Site Title Was Updated'}
 			messages.append(message)
 		if title_ico:
-			for filename in os.listdir(settings.MEDIA_ROOT):
-				file_path=os.path.join(settings.MEDIA_ROOT,filename)
-				try:
-					if os.path.isfile(file_path) or os.path.islink(file_path):
-						os.unlink(file_path)
-					elif os.path.isdir(file_path):
-						shutil.rmtree(file_path)
-				except Exception as e:
-					print('Failed to delete %s. Reason: %s'%(file_path,e))
+			if site_title_obj.title_icon.path.find('\\default.png')==-1 and site_title_obj.title_icon.path.find(
+					'/default.png')==-1:
+				if os.path.isfile(site_title_obj.title_icon.path):
+					os.remove(site_title_obj.title_icon.path)
 			site_title_obj.title_icon=title_ico
 			message={'type':'success','body':' Your Site Title Icon Was Updated'}
 			messages.append(message)
@@ -330,87 +283,89 @@ def slideshow_(request):
 			slideshow_arr={'object':slide,'title_parts':title_parts}
 			slideshow_array.append(slideshow_arr)
 	return render(request,'control_panel/slideshow.html',{'messages':messages,'slideshow':slideshow_array})
-def video(request):
-	# region check if user is staff
+def video_(request):
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
-	return render(request,'control_panel/video.html',{'messages':messages})
+	if request.method=='POST':
+		if request.POST.get('Add-new-video') is not None:
+			video.objects.create_video()
+		elif request.POST.get('remove-video') is not None:
+			id=request.POST.get('remove-video')
+			video.objects.remve_video(id)
+		elif request.POST.get('save') is not None:
+			cover_img=request.FILES.get('cover-img')
+			video_title=request.POST.get('video-title')
+			video_description=request.POST.get('video-description')
+			video_url=request.POST.get('video-url')
+			id=request.POST.get('save')
+			if cover_img:
+				video.objects.change_cover_img(id,cover_img)
+				message={'type':'success','body':' Video Cover Image Was Updated'}
+				messages.append(message)
+			if video_title!='':
+				video.objects.change_video_title(id,video_title)
+				message={'type':'success','body':' Video Title Was Updated'}
+				messages.append(message)
+			if video_description!='':
+				video.objects.change_video_description(id,video_description)
+				message={'type':'success','body':' Video Description Was Updated'}
+				messages.append(message)
+			if video_url!='':
+				video.objects.change_video_url(id,video_url)
+				message={'type':'success','body':' Video url Was Updated'}
+				messages.append(message)
+			if len(messages)<1:
+				message={'type':'info','body':' There Were No Changes To Save.'}
+				messages.append(message)
+		elif request.POST.get('m-u') is not None:
+			id=request.POST.get('m-u')
+			video.objects.move_up(id)
+		elif request.POST.get('m-d') is not None:
+			id=request.POST.get('m-d')
+			video.objects.move_down(id)
+		elif request.POST.get('r-l') is not None:
+			id=request.POST.get('r-l')
+			video.objects.flip(id)
+	return render(request,'control_panel/video.html',{'messages':messages,'videos':video.objects.all()})
 def our_services(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/our-services.html',{'messages':messages})
 def work_samples(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/work-samples.html',{'messages':messages})
 def our_team(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/our-team.html',{'messages':messages})
 def our_customers(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/our-customers.html',{'messages':messages})
 def footer(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/footer.html',{'messages':messages})
 def pictures(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/pictures.html',{'messages':messages})
 def themes(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
 	return render(request,'control_panel/themes.html',{'messages':messages})
 def logout(request):
-	# region check if user is staff
 	if not request.user.is_staff:
 		return redirect('/')
-	# endregion
-	# region create messages list
 	messages=list()
-	# endregion
-	# region logout the current user
 	auth.logout(request)
-	# endregion
 	return render(request,'control_panel/logout.html',{'messages':messages})
