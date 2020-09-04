@@ -2,7 +2,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
 
-from .models import site_title,slideshow,video
+from .models import site_title,slideshow,video,services
 def index(request):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -215,7 +215,7 @@ def slideshow_(request):
 			slideshow.objects.create_slide()
 		elif request.POST.get('remove-slide') is not None:
 			id=request.POST.get('remove-slide')
-			slideshow.objects.remve_slide(id)
+			slideshow.objects.remove_slide(id)
 		elif request.POST.get('save') is not None:
 			slide_img=request.FILES.get('slide-img')
 			slide_title=request.POST.get('slide-title')
@@ -312,7 +312,42 @@ def our_services_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
-	return render(request,'control_panel/our-services.html',{'messages':messages})
+	if request.method=='POST':
+		if request.POST.get('Add-new-service') is not None:
+			services.objects.create_service()
+		elif request.POST.get('remove-service') is not None:
+			id=request.POST.get('remove-service')
+			services.objects.remove_service(id)
+		elif request.POST.get('save') is not None:
+			img=request.FILES.get('service-img')
+			title=request.POST.get('service-title')
+			description=request.POST.get('service-description')
+			id=request.POST.get('save')
+			if img:
+				services.objects.change_service_img(id,img)
+				message={'type':'success',
+						 'body':' Video Cover Image Was Updated'}
+				messages.append(message)
+			if title!='':
+				services.objects.change_service_title(id,title)
+				message={'type':'success','body':' Video Title Was Updated'}
+				messages.append(message)
+			if description!='':
+				services.objects.change_service_description(id,description)
+				message={'type':'success',
+						 'body':' Video Description Was Updated'}
+				messages.append(message)
+			if len(messages)<1:
+				message={'type':'info','body':' There Were No Changes To Save.'}
+				messages.append(message)
+		elif request.POST.get('m-u') is not None:
+			id=request.POST.get('m-u')
+			services.objects.move_up(id)
+		elif request.POST.get('m-d') is not None:
+			id=request.POST.get('m-d')
+			services.objects.move_down(id)
+	return render(request,'control_panel/our-services.html',
+				  {'messages':messages,'services':services.objects.all()})
 def work_samples_(request):
 	if not request.user.is_staff:
 		return redirect('/')
