@@ -198,84 +198,105 @@
 			<div class="container-fluid">
 				<!-- Messages -->
 				{% for message in messages %}
-				<div class="container-fluid">
-					{% if message.type == "success" %}
-					<!-- Success Alert -->
-					<div class="alert alert-success alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<div class="container-fluid">
+						{% if message.type == "success" %}
+							<!-- Success Alert -->
+							<div class="alert alert-success alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% elif message.type == "error" %}
+							<!-- Error Alert -->
+							<div class="alert alert-danger alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% elif message.type == "warning" %}
+							<!-- Warning Alert -->
+							<div class="alert alert-warning alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% elif message.type == "info" %}
+							<!-- Info Alert -->
+							<div class="alert alert-info alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% endif %}
 					</div>
-					{% elif message.type == "error" %}
-					<!-- Error Alert -->
-					<div class="alert alert-danger alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
-					{% elif message.type == "warning" %}
-					<!-- Warning Alert -->
-					<div class="alert alert-warning alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
-					{% elif message.type == "info" %}
-					<!-- Info Alert -->
-						<div class="alert alert-info alert-dismissible fade show">
-							<strong>{{ message.strong }}</strong> {{ message.body }}
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-						</div>
-					{% endif %}
-				</div>
 				{% endfor %}
-				<!-- Page Heading -->
-				<form method="POST">
-					{% csrf_token %}
-					<div class="card-deck mb-3">
-						<div class="card">
-							<div class="card-body d-sm-none ">
-								<button style="float: right;" class="btn btn-primary"
-										value="{{ slide.object.id }}" type="submit"
-										name="m-d"><a class="fa fa-arrow-down"></a>
-								</button>
-								<button class="btn btn-primary"
-										value="{{ slide.object.id }}" type="submit"
-										name="m-u"><a class="fa fa-arrow-up"></a>
-								</button>
+				<div class="card-deck mb-3">
+					<div class="form-row">
+						{% for work_sample in work_samples %}
+							<div class="mt-4 col-lg-6 col-lg-6">
+								<div class="card card-deck">
+									<img class="card-img" src="{{ work_sample.img.url }}"
+										 alt="Card image cap">
+									<div class="card-body">
+										<form method="POST" enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="input-group mb-5">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input"
+														   id="inputGroupFile01"
+														   aria-describedby="inputGroupFileAddon01"
+														   name="work-sample-img">
+													<label class="custom-file-label"
+														   for="inputGroupFile01">Work Sample Image</label>
+												</div>
+											</div>
+											<div class="form-row">
+												<div class="col">
+													<div class="form-group"><label><strong>Work Sample
+																						   Title</strong></label><input
+															class="form-control" type="text"
+															placeholder="{{ work_sample.title }}"
+															name="work-sample-title">
+													</div>
+													<div class="form-group"><label><strong>Work Sample
+																						   Description</strong></label>
+														<textarea class="form-control" rows="2"
+																  placeholder="{{ work_sample.description }}"
+																  name="work-sample-description"></textarea></div>
+												</div>
+											</div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text"
+														  id="basic-addon1">Work sample url</span>
+												</div>
+												<input type="text" class="form-control"
+													   placeholder="{{ work_sample.url }}"
+													   aria-label="Username" aria-describedby="basic-addon1"
+													   name="work-sample-url">
+											</div>
+											<button style="float: right;" class="btn btn-primary"
+													value="{{ work_sample.id }}" type="submit"
+													name="save">Save
+											</button>
+											<button class="btn btn-danger"
+													value="{{ work_sample.id }}" type="submit"
+													name="remove-work-sample">Remove
+											</button>
+										</form>
+									</div>
+								</div>
 							</div>
-							<div class="card-body d-none d-sm-block">
-								<button style="float: right;" class="btn btn-primary"
-										value="{{ slide.object.id }}" type="submit"
-										name="m-d"><a class="fa fa-angle-right"></a>
-								</button>
-								<button class="btn btn-primary"
-										value="{{ slide.object.id }}" type="submit"
-										name="m-u"><a class="fa fa-angle-left"></a>
-								</button>
+						{% endfor %}
+						<div class="mt-4 col-lg-6 col-lg-6">
+							<div class="card">
+								<form method="POST">
+									{% csrf_token %}
+									<button type="submit" style="width:100%; height:100%"
+											class="btn btn-success"
+											name="Add-new-work-sample"><strong>+</strong>
+									</button>
+								</form>
 							</div>
-							<img class="card-img" src="https://via.placeholder.com/64"
-								 alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural
-													 lead-in
-													 to additional content. This content is a little bit longer.</p>
-								<button style="float: right;" class="btn btn-primary"
-										value="{{ slide.object.id }}" type="submit"
-										name="save">Save
-								</button>
-								<button class="btn btn-danger"
-										value="{{ slide.object.id }}" type="submit"
-										name="save">Remove
-								</button>
-							</div>
-						</div>
-						<div class="card">
-							<button type="submit" style="width:100%; height:100%"
-									class="btn card-img-bottom btn-success btn-lg btn-block"
-									name="Add-new-video"><strong>+</strong>
-							</button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 			<!-- /.container-fluid -->
 		</div>

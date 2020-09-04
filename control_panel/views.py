@@ -1,8 +1,17 @@
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.shortcuts import render,redirect
+from django.shortcuts import (
+	render,
+	redirect,
+	)
 
-from .models import site_title,slideshow,video,services
+from .models import (
+	site_title,
+	slideshow,
+	video,
+	services,
+	work_samples,
+	)
 def index(request):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -13,7 +22,11 @@ def users(request):
 		return redirect('/')
 	messages=list()
 	users=User.objects.all()
-	return render(request,'control_panel/users.html',{'users':users,'messages':messages})
+	return render(request,'control_panel/users.html',
+				  {
+					  'users':users,
+					  'messages':messages
+					  })
 def change_user_data(request,id):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -23,7 +36,10 @@ def change_user_data(request,id):
 	if request.method=='POST':
 		if request.POST.get('first-name') is not None:
 			if not request.user.is_superuser:
-				message={'type':'error','body':'You Don\'t Have Permission To Change Users Data.'}
+				message={
+					'type':'error',
+					'body':'You Don\'t Have Permission To Change Users Data.'
+					}
 				messages.append(message)
 			else:
 				user_to_change=User.objects.get(id=id)
@@ -33,17 +49,28 @@ def change_user_data(request,id):
 				username=request.POST.get('username')
 				if email is not None and email!='':
 					if '@' not in email or '.' not in email:
-						message={'type':'error','body':' Email Is Not Valid.'}
+						message={
+							'type':'error',
+							'body':' Email Is Not Valid.'
+							}
 						messages.append(message)
 					else:
-						if User.objects.filter(email=email).exists() and User.objects.get(
-								email=email).email!=user_to_change.email:
-							message={'type':'error','body':' Email Is Used.'}
+						if User.objects.filter(
+								email=email).exists() and User.objects.get(
+							email=email).email!=user_to_change.email:
+							message={
+								'type':'error',
+								'body':' Email Is Used.'
+								}
 							messages.append(message)
 				if username is not None and username!='':
-					if User.objects.filter(username=username).exists() and User.objects.get(
-							username=username).username!=user_to_change.username:
-						message={'type':'error','body':' Username Is Used.'}
+					if User.objects.filter(
+							username=username).exists() and User.objects.get(
+						username=username).username!=user_to_change.username:
+						message={
+							'type':'error',
+							'body':' Username Is Used.'
+							}
 						messages.append(message)
 				allow_to_update_user=True
 				for message in messages:
@@ -59,14 +86,24 @@ def change_user_data(request,id):
 					if username is not None and username!='':
 						user_to_change.username=username
 					user_to_change.save()
-					if first_name=='' and last_name=='' and email=='' and username=='':
-						message={'type':'info','body':' There Were No Changes To Save.'}
+					if first_name=='' and last_name=='' and email=='' and\
+							username=='':
+						message={
+							'type':'info',
+							'body':' There Were No Changes To Save.'
+							}
 					else:
-						message={'type':'success','body':' User Was Updated Successfully.'}
+						message={
+							'type':'success',
+							'body':' User Was Updated Successfully.'
+							}
 					messages.append(message)
 		elif request.POST.get('delete') is not None:
 			if not request.user.is_superuser:
-				message={'type':'error','body':'You Don\'t Have Permission To Change Users Data.'}
+				message={
+					'type':'error',
+					'body':'You Don\'t Have Permission To Change Users Data.'
+					}
 				messages.append(message)
 			else:
 				user_to_delete=User.objects.get(id=id)
@@ -76,18 +113,30 @@ def change_user_data(request,id):
 			return redirect('/control_panel/auth/users/')
 		else:
 			if not request.user.is_superuser:
-				message={'type':'error','body':'You Don\'t Have Permission To Change Users Data.'}
+				message={
+					'type':'error',
+					'body':'You Don\'t Have Permission To Change Users Data.'
+					}
 				messages.append(message)
 			else:
 				user_to_change=User.objects.get(id=id)
 				is_active=request.POST.get('is-active') is not None
 				is_staff_status=request.POST.get('is-staff-status') is not None
-				is_superuser_status=request.POST.get('is-superuser-status') is not None
-				if user_to_change.is_active==is_active and user_to_change.is_staff==is_staff_status and user_to_change.is_superuser==is_superuser_status:
-					message={'type':'info','body':' There Were No Changes To Save.'}
+				is_superuser_status=request.POST.get(
+					'is-superuser-status') is not None
+				if user_to_change.is_active==is_active and\
+						user_to_change.is_staff==is_staff_status and\
+						user_to_change.is_superuser==is_superuser_status:
+					message={
+						'type':'info',
+						'body':' There Were No Changes To Save.'
+						}
 					messages.append(message)
 				else:
-					message={'type':'success','body':' User Was Updated Successfully.'}
+					message={
+						'type':'success',
+						'body':' User Was Updated Successfully.'
+						}
 					messages.append(message)
 				user_to_change.is_active=is_active
 				user_to_change.is_staff=is_staff_status
@@ -96,7 +145,10 @@ def change_user_data(request,id):
 	try:
 		user_to_change=User.objects.get(id=id)
 		return render(request,'control_panel/change-user-data.html',
-		              {'user_to_change':user_to_change,'messages':messages})
+					  {
+						  'user_to_change':user_to_change,
+						  'messages':messages
+						  })
 	except:
 		return redirect('/control_panel/auth/users/')
 def create_new_user(request):
@@ -105,7 +157,10 @@ def create_new_user(request):
 	messages=list()
 	if request.method=='POST':
 		if not request.user.is_superuser:
-			message={'type':'error','body':'You Don\'t Have Permission To Add New User.'}
+			message={
+				'type':'error',
+				'body':'You Don\'t Have Permission To Add New User.'
+				}
 			messages.append(message)
 		else:
 			first_name=request.POST.get('first-name')
@@ -155,12 +210,18 @@ def create_new_user(request):
 					message={'type':'warning','body':' Password Is Weak.'}
 					messages.append(message)
 			if re_password is None or re_password=='':
-				message={'type':'error',
-				         'body':' Repeat Password Field Is Empty, You Have To Repeat The Password In This Field.'}
+				message={
+					'type':'error',
+					'body':' Repeat Password Field Is Empty, You Have To '
+						   'Repeat The Password In This Field.'
+					}
 				messages.append(message)
 			else:
 				if re_password!=password:
-					message={'type':'error','body':' The Two Password Fields Didn’t Match.'}
+					message={
+						'type':'error',
+						'body':' The Two Password Fields Didn’t Match.'
+						}
 					messages.append(message)
 			allow_to_create_user=True
 			for message in messages:
@@ -176,11 +237,17 @@ def create_new_user(request):
 					is_active=is_active,
 					is_staff=is_staff_status,
 					is_superuser=is_superuser_status,
-				)
+					)
 				user.save()
-				message={'type':'success','body':' User Was Created Successfully.'}
+				message={
+					'type':'success',
+					'body':' User Was Created Successfully.'
+					}
 				messages.append(message)
-	return render(request,'control_panel/create-new-user.html',{'messages':messages})
+	return render(request,'control_panel/create-new-user.html',
+				  {
+					  'messages':messages
+					  })
 def groups(request):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -196,16 +263,29 @@ def site_title_(request):
 		title_ico=request.FILES.get('title-ico')
 		if title!='':
 			site_title.objects.change_title(title)
-			message={'type':'success','body':' Your Site Title Was Updated'}
+			message={
+				'type':'success',
+				'body':' Your Site Title Was Updated'
+				}
 			messages.append(message)
 		if title_ico:
 			site_title.objects.change_icon(title_ico)
-			message={'type':'success','body':' Your Site Title Icon Was Updated'}
+			message={
+				'type':'success',
+				'body':' Your Site Title Icon Was Updated'
+				}
 			messages.append(message)
 		if len(messages)<1:
-			message={'type':'info','body':' There Were No Changes To Save.'}
+			message={
+				'type':'info',
+				'body':' There Were No Changes To Save.'
+				}
 			messages.append(message)
-	return render(request,'control_panel/site-title.html',{'messages':messages,'site_title':site_title.objects.all()})
+	return render(request,'control_panel/site-title.html',
+				  {
+					  'messages':messages,
+					  'site_title':site_title.objects.all()
+					  })
 def slideshow_(request):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -249,20 +329,39 @@ def slideshow_(request):
 			title_parts=list()
 			for slide_title_part in slide_title_parts:
 				if '{' in slide_title_part:
-					title_part={'title':slide_title_part.split('{')[0],'span':slide_title_part.split('{')[1]}
+					title_part={
+						'title':slide_title_part.split('{')[0],
+						'span':slide_title_part.split('{')[1]
+						}
 					title_parts.append(title_part)
 				else:
-					title_part={'title':slide_title_part,'span':''}
+					title_part={
+						'title':slide_title_part,
+						'span':''
+						}
 					title_parts.append(title_part)
-			slideshow_arr={'object':slide,'title_parts':title_parts}
+			slideshow_arr={
+				'object':slide,
+				'title_parts':title_parts
+				}
 			slideshow_array.append(slideshow_arr)
 		else:
 			title_parts=list()
-			title_part={'title':slide.slide_title,'span':''}
+			title_part={
+				'title':slide.slide_title,
+				'span':''
+				}
 			title_parts.append(title_part)
-			slideshow_arr={'object':slide,'title_parts':title_parts}
+			slideshow_arr={
+				'object':slide,
+				'title_parts':title_parts
+				}
 			slideshow_array.append(slideshow_arr)
-	return render(request,'control_panel/slideshow.html',{'messages':messages,'slideshow':slideshow_array})
+	return render(request,'control_panel/slideshow.html',
+				  {
+					  'messages':messages,
+					  'slideshow':slideshow_array
+					  })
 def video_(request):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -281,7 +380,10 @@ def video_(request):
 			id=request.POST.get('save')
 			if cover_img:
 				video.objects.change_cover_img(id,cover_img)
-				message={'type':'success','body':' Video Cover Image Was Updated'}
+				message={
+					'type':'success',
+					'body':' Video Cover Image Was Updated'
+					}
 				messages.append(message)
 			if video_title!='':
 				video.objects.change_video_title(id,video_title)
@@ -289,7 +391,10 @@ def video_(request):
 				messages.append(message)
 			if video_description!='':
 				video.objects.change_video_description(id,video_description)
-				message={'type':'success','body':' Video Description Was Updated'}
+				message={
+					'type':'success',
+					'body':' Video Description Was Updated'
+					}
 				messages.append(message)
 			if video_url!='':
 				video.objects.change_video_url(id,video_url)
@@ -307,12 +412,17 @@ def video_(request):
 		elif request.POST.get('r-l') is not None:
 			id=request.POST.get('r-l')
 			video.objects.flip(id)
-	return render(request,'control_panel/video.html',{'messages':messages,'videos':video.objects.all()})
+	return render(request,'control_panel/video.html',
+				  {
+					  'messages':messages,
+					  'videos':video.objects.all()
+					  })
 def our_services_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
 	if request.method=='POST':
+		print(request.POST)
 		if request.POST.get('Add-new-service') is not None:
 			services.objects.create_service()
 		elif request.POST.get('remove-service') is not None:
@@ -325,20 +435,30 @@ def our_services_(request):
 			id=request.POST.get('save')
 			if img:
 				services.objects.change_service_img(id,img)
-				message={'type':'success',
-						 'body':' Video Cover Image Was Updated'}
+				message={
+					'type':'success',
+					'body':' Service Image Was Updated'
+					}
 				messages.append(message)
 			if title!='':
 				services.objects.change_service_title(id,title)
-				message={'type':'success','body':' Video Title Was Updated'}
+				message={
+					'type':'success',
+					'body':' Service Title Was Updated'
+					}
 				messages.append(message)
 			if description!='':
 				services.objects.change_service_description(id,description)
-				message={'type':'success',
-						 'body':' Video Description Was Updated'}
+				message={
+					'type':'success',
+					'body':' Service Description Was Updated'
+					}
 				messages.append(message)
 			if len(messages)<1:
-				message={'type':'info','body':' There Were No Changes To Save.'}
+				message={
+					'type':'info',
+					'body':' There Were No Changes To Save.'
+					}
 				messages.append(message)
 		elif request.POST.get('m-u') is not None:
 			id=request.POST.get('m-u')
@@ -352,7 +472,58 @@ def work_samples_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
-	return render(request,'control_panel/work-samples.html',{'messages':messages})
+	if request.method=='POST':
+		if request.POST.get('Add-new-work-sample') is not None:
+			work_samples.objects.create_work_sample()
+		elif request.POST.get('remove-work-sample') is not None:
+			id=request.POST.get('remove-work-sample')
+			work_samples.objects.remove_work_sample(id)
+		elif request.POST.get('save') is not None:
+			id=request.POST.get('save')
+			img=request.FILES.get('work-sample-img')
+			title=request.POST.get('work-sample-title')
+			description=request.POST.get('work-sample-description')
+			url=request.POST.get('work-sample-url')
+			if img:
+				work_samples.objects.change_work_sample_img(id,img)
+				message={
+					'type':'success',
+					'body':' Work Sample Image Was Updated'
+					}
+				messages.append(message)
+			if title!='':
+				work_samples.objects.change_work_sample_title(id,title)
+				message={
+					'type':'success',
+					'body':' Work Sample Title Was Updated'
+					}
+				messages.append(message)
+			if description!='':
+				work_samples.objects.change_work_sample_description(id,
+																	description)
+				message={
+					'type':'success',
+					'body':' Work Sample Description Was Updated'
+					}
+				messages.append(message)
+			if url!='':
+				work_samples.objects.change_work_sample_url(id,description)
+				message={
+					'type':'success',
+					'body':' Work Sample url Was Updated'
+					}
+				messages.append(message)
+			if len(messages)<1:
+				message={
+					'type':'info',
+					'body':' There Were No Changes To Save.'
+					}
+				messages.append(message)
+	return render(request,'control_panel/work-samples.html',
+				  {
+					  'messages':messages,
+					  'work_samples':work_samples.objects.all()
+					  })
 def our_team_(request):
 	if not request.user.is_staff:
 		return redirect('/')
@@ -362,7 +533,10 @@ def our_customers_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
-	return render(request,'control_panel/our-customers.html',{'messages':messages})
+	return render(request,'control_panel/our-customers.html',
+				  {
+					  'messages':messages
+					  })
 def footer_(request):
 	if not request.user.is_staff:
 		return redirect('/')

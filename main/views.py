@@ -1,6 +1,12 @@
 from django.shortcuts import render
 
-from control_panel.models import site_title,slideshow,video
+from control_panel.models import (
+	site_title,
+	slideshow,
+	video,
+	services,
+	work_samples,
+	)
 def about_us(request):
 	return render(request,'main/about-us.html',{'site_title':site_title.objects.all(),'page_name':'about_us'})
 def blog_detail(request):
@@ -42,8 +48,14 @@ def index(request):
 	for _video in videos:
 		_video.video_description=_video.video_description.split('\n')
 	return render(request,'main/index.html',
-				  {'site_title':site_title.objects.all(),'slideshow':slideshow_array,'videos':videos,
-				   'page_name':''})
+				  {
+					  'site_title':site_title.objects.all(),
+					  'slideshow':slideshow_array,
+					  'videos':videos,
+					  'services':services.objects.all(),
+					  'work_samples':work_samples.objects.all(),
+					  'page_name':''
+					  })
 def our_services(request):
 	return render(request,'main/our-services.html',{'site_title':site_title.objects.all(),'page_name':'our_services'})
 def our_team(request):

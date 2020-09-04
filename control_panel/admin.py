@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from control_panel.models import site_title,slideshow,video,services,work_samples,our_team,our_customers
+from control_panel.models import site_title,slideshow,video,services,\
+	work_samples,our_team,our_customers
 admin.site.register(site_title)
 admin.site.register(slideshow)
 admin.site.register(video)

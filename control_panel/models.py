@@ -8,8 +8,9 @@ class siteTitleManager(models.Manager):
 		elif len(site_title.objects.all())>1:
 			for obj in site_title.objects.all():
 				if obj.id!=1:
-					if obj.title_icon.path.find('\\default.png')==-1 and obj.title_icon.path.find(
-							'/default.png')==-1:
+					if obj.title_icon.path.find(
+							'\\default.png')==-1 and obj.title_icon.path.find(
+						'/default.png')==-1:
 						if os.path.isfile(obj.title_icon.path):
 							os.remove(obj.title_icon.path)
 					obj.delete()
@@ -31,16 +32,20 @@ class siteTitleManager(models.Manager):
 		return site_title_obj
 class site_title(models.Model):
 	title=models.CharField(max_length=100)
-	title_icon=models.ImageField(upload_to='title_ico/',default='title_ico/default/default.png',blank=True)
+	title_icon=models.ImageField(upload_to='title_ico/',
+								 default='title_ico/default/default.png',
+								 blank=True)
 	objects=siteTitleManager()
 class slideshowManager(models.Manager):
 	def create_slide(self):
-		slide=slideshow.objects.create(slide_title='title',slide_body_text="slide body text")
+		slide=slideshow.objects.create(slide_title='title',
+									   slide_body_text="slide body text")
 		return slide
 	def change_slide_img(self,id,img):
 		slide=slideshow.objects.filter(id=id).get()
-		if slide.slide_img.path.find('\\default.png')==-1 and slide.slide_img.path.find(
-				'/default.png')==-1:
+		if slide.slide_img.path.find(
+				'\\default.png')==-1 and slide.slide_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(slide.slide_img.path):
 				os.remove(slide.slide_img.path)
 		slide.slide_img=img
@@ -58,8 +63,9 @@ class slideshowManager(models.Manager):
 		return slide
 	def remove_slide(self,id):
 		slide=slideshow.objects.filter(id=id).get()
-		if slide.slide_img.path.find('\\default.png')==-1 and slide.slide_img.path.find(
-				'/default.png')==-1:
+		if slide.slide_img.path.find(
+				'\\default.png')==-1 and slide.slide_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(slide.slide_img.path):
 				os.remove(slide.slide_img.path)
 		slide.delete()
@@ -101,18 +107,22 @@ class slideshowManager(models.Manager):
 		slide_.save()
 		return slide
 class slideshow(models.Model):
-	slide_img=models.ImageField(upload_to='slides_img/',default='slides_img/default/default.png',blank=True)
+	slide_img=models.ImageField(upload_to='slides_img/',
+								default='slides_img/default/default.png',
+								blank=True)
 	slide_title=models.CharField(max_length=100)
 	slide_body_text=models.TextField()
 	objects=slideshowManager()
 class videoManager(models.Manager):
 	def create_video(self):
-		slide=video.objects.create(video_title='title',video_description="video description")
+		slide=video.objects.create(video_title='title',
+								   video_description="video description")
 		return slide
 	def change_cover_img(self,id,img):
 		_video=video.objects.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find(
-				'/default.png')==-1:
+		if _video.cover_img.path.find(
+				'\\default.png')==-1 and _video.cover_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_video.cover_img.path):
 				os.remove(_video.cover_img.path)
 		_video.cover_img=img
@@ -140,8 +150,9 @@ class videoManager(models.Manager):
 		return _video
 	def remove_video(self,id):
 		_video=video.objects.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find(
-				'/default.png')==-1:
+		if _video.cover_img.path.find(
+				'\\default.png')==-1 and _video.cover_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_video.cover_img.path):
 				os.remove(_video.cover_img.path)
 		_video.delete()
@@ -196,10 +207,12 @@ class videoManager(models.Manager):
 		return _video
 class video(models.Model):
 	cover_img=models.ImageField(upload_to='video/cover_img/',
-								default='video/cover_img/default/default.png',blank=True)
+								default='video/cover_img/default/default.png',
+								blank=True)
 	video_title=models.CharField(max_length=191)
 	video_description=models.TextField()
-	video_url=models.URLField(default='https://www.youtube.com/embed/17MBllYf6OY',blank=True)
+	video_url=models.URLField(
+		default='https://www.youtube.com/embed/17MBllYf6OY',blank=True)
 	video_R_dir=models.BooleanField(default=True)
 	objects=videoManager()
 class servicesManager(models.Manager):
@@ -208,8 +221,9 @@ class servicesManager(models.Manager):
 		return service
 	def change_service_img(self,id,img):
 		_service=services.objects.filter(id=id).get()
-		if _service.img.path.find('\\default.png')==-1 and _service.img.path.find(
-				'/default.png')==-1:
+		if _service.img.path.find(
+				'\\default.png')==-1 and _service.img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_service.img.path):
 				os.remove(_service.img.path)
 		_service.img=img
@@ -227,8 +241,9 @@ class servicesManager(models.Manager):
 		return _service
 	def remove_service(self,id):
 		_service=services.objects.filter(id=id).get()
-		if _service.img.path.find('\\default.png')==-1 and _service.img.path.find(
-				'/default.png')==-1:
+		if _service.img.path.find(
+				'\\default.png')==-1 and _service.img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_service.img.path):
 				os.remove(_service.img.path)
 		_service.delete()
@@ -270,55 +285,69 @@ class servicesManager(models.Manager):
 		_service_.save()
 		return _service
 class services(models.Model):
-	img=models.ImageField(upload_to='services/img/',default='services/img/default/default.png'
+	img=models.ImageField(upload_to='services/img/',
+						  default='services/img/default/default.png'
 						  ,blank=True)
 	title=models.CharField(max_length=191)
 	description=models.TextField()
 	objects=servicesManager()
 class workSamplesManager(models.Manager):
-	def create_video(self):
-		slide=work_samples.objects.create(title='title',description="video description")
-		return slide
-	def change_cover_img(self,id,img):
-		_video=work_samples.objects.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find(
-				'/default.png')==-1:
-			if os.path.isfile(_video.cover_img.path):
-				os.remove(_video.cover_img.path)
-		_video.cover_img=img
-		_video.save()
-		return _video
-	def change_video_title(self,id,title):
-		_video=work_samples.objects.filter(id=id).get()
-		_video.video_title=title
-		_video.save()
-		return _video
-	def change_video_description(self,id,text):
-		_video=work_samples.objects.filter(id=id).get()
-		_video.video_description=text
-		_video.save()
-		return _video
-	def remove_video(self,id):
-		_video=work_samples.objects.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find(
-				'/default.png')==-1:
-			if os.path.isfile(_video.cover_img.path):
-				os.remove(_video.cover_img.path)
-		_video.delete()
-		return _video
+	def create_work_sample(self):
+		work_sample=work_samples.objects.create(title='title',
+												description="description")
+		return work_sample
+	def change_work_sample_img(self,id,img):
+		work_sample=work_samples.objects.filter(id=id).get()
+		if work_sample.img.path.find(
+				'\\default.png')==-1 and work_sample.img.path.find(
+			'/default.png')==-1:
+			if os.path.isfile(work_sample.img.path):
+				os.remove(work_sample.img.path)
+		work_sample.img=img
+		work_sample.save()
+		return work_sample
+	def change_work_sample_title(self,id,title):
+		work_sample=work_samples.objects.filter(id=id).get()
+		work_sample.title=title
+		work_sample.save()
+		return work_sample
+	def change_work_sample_description(self,id,text):
+		work_sample=work_samples.objects.filter(id=id).get()
+		work_sample.description=text
+		work_sample.save()
+		return work_sample
+	def change_work_sample_url(self,id,url):
+		work_sample=work_samples.objects.filter(id=id).get()
+		work_sample.url=url
+		work_sample.save()
+		return work_sample
+	def remove_work_sample(self,id):
+		work_sample=work_samples.objects.filter(id=id).get()
+		if work_sample.img.path.find(
+				'\\default.png')==-1 and work_sample.img.path.find(
+			'/default.png')==-1:
+			if os.path.isfile(work_sample.img.path):
+				os.remove(work_sample.img.path)
+		work_sample.delete()
+		return work_sample
 class work_samples(models.Model):
-	img=models.ImageField(upload_to='work_samples/img/',default='work_samples/img/default/default.png',blank=True)
+	img=models.ImageField(upload_to='work_samples/img/',
+						  default='work_samples/img/default/default.png',
+						  blank=True)
 	title=models.CharField(max_length=191)
 	description=models.TextField()
 	url=models.URLField(blank=True)
-	objects=servicesManager()
+	objects=workSamplesManager()
 class ourTeamManager(models.Manager):
 	def create_video(self):
-		slide=self.create(video_title='title',video_description="video description")
+		slide=self.create(video_title='title',
+						  video_description="video description")
 		return slide
 	def change_cover_img(self,id,img):
 		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find('/default.png')==-1:
+		if _video.cover_img.path.find(
+				'\\default.png')==-1 and _video.cover_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_video.cover_img.path):
 				os.remove(_video.cover_img.path)
 		_video.cover_img=img
@@ -336,14 +365,17 @@ class ourTeamManager(models.Manager):
 		return _video
 	def remove_video(self,id):
 		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find(
-				'/default.png')==-1:
+		if _video.cover_img.path.find(
+				'\\default.png')==-1 and _video.cover_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_video.cover_img.path):
 				os.remove(_video.cover_img.path)
 		_video.delete()
 		return _video
 class our_team(models.Model):
-	img=models.ImageField(upload_to='services/img/',default='services/img/default/default.png',blank=True)
+	img=models.ImageField(upload_to='services/img/',
+						  default='services/img/default/default.png',
+						  blank=True)
 	title=models.CharField(max_length=191)
 	description=models.TextField()
 	facebook=models.URLField(blank=True)
@@ -353,11 +385,14 @@ class our_team(models.Model):
 	objects=ourTeamManager()
 class ourCustomersManager(models.Manager):
 	def create_video(self):
-		slide=self.create(video_title='title',video_description="video description")
+		slide=self.create(video_title='title',
+						  video_description="video description")
 		return slide
 	def change_cover_img(self,id,img):
 		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find('/default.png')==-1:
+		if _video.cover_img.path.find(
+				'\\default.png')==-1 and _video.cover_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_video.cover_img.path):
 				os.remove(_video.cover_img.path)
 		_video.cover_img=img
@@ -375,14 +410,17 @@ class ourCustomersManager(models.Manager):
 		return _video
 	def remove_video(self,id):
 		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find('\\default.png')==-1 and _video.cover_img.path.find(
-				'/default.png')==-1:
+		if _video.cover_img.path.find(
+				'\\default.png')==-1 and _video.cover_img.path.find(
+			'/default.png')==-1:
 			if os.path.isfile(_video.cover_img.path):
 				os.remove(_video.cover_img.path)
 		_video.delete()
 		return _video
 class our_customers(models.Model):
-	img=models.ImageField(upload_to='services/img/',default='services/img/default/default.png',blank=True)
+	img=models.ImageField(upload_to='services/img/',
+						  default='services/img/default/default.png',
+						  blank=True)
 	title=models.CharField(max_length=191)
 	description=models.TextField()
 	objects=servicesManager()

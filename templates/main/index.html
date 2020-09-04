@@ -255,72 +255,19 @@
 			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
 		</div>
 		<div class="row">
-			<div class="col-xl-4 col-lg-4 col-md-6">
-				<div class="px-service-block">
-					<div class="px-service-icon">
-						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-					</div>
-					<div class="px-service-text">
-						<h4>طراحی وب سایت</h4>
-						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-6">
-				<div class="px-service-block">
-					<div class="px-service-icon">
-						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-					</div>
-					<div class="px-service-text">
-						<h4>توسعه وب</h4>
-						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
+			{% for service in services %}
+				<div class="col-xl-4 col-lg-4 col-md-6">
+					<div class="px-service-block">
+						<div class="px-service-icon">
+							<img src="{{ service.img.url }}" alt="icon" class="img-fluid mx-auto d-block">
+						</div>
+						<div class="px-service-text">
+							<h4>{{ service.title }}</h4>
+							<p>{{ service.description }}</p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-6">
-				<div class="px-service-block">
-					<div class="px-service-icon">
-						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-					</div>
-					<div class="px-service-text">
-						<h4>طراحی تعاملی</h4>
-						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-6">
-				<div class="px-service-block">
-					<div class="px-service-icon">
-						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-					</div>
-					<div class="px-service-text">
-						<h4>هویت تجاری</h4>
-						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-6">
-				<div class="px-service-block">
-					<div class="px-service-icon">
-						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-					</div>
-					<div class="px-service-text">
-						<h4>طراحی خلاق</h4>
-						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-6">
-				<div class="px-service-block">
-					<div class="px-service-icon">
-						<img src="https://via.placeholder.com/64" alt="icon" class="img-fluid mx-auto d-block">
-					</div>
-					<div class="px-service-text">
-						<h4>نوشتن مطالب</h4>
-						<p>این یک متن ساختگی می باشد. استاندار ها طراحی یک وب سایت خوب و زیبا</p>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </section>
@@ -340,58 +287,21 @@
 	</div>
 	<div class="container-fluid">
 		<div class="px-work-slider">
-			<div class="px-work-item-wrapper">
-				<div class="px-work-item">
-					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-					<div class="px-item-content">
-						<div class="px-main-content">
-							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
+			{% for work_sample in work_samples %}
+				<div class="px-work-item-wrapper">
+					<div class="px-work-item">
+						<img src="{{ work_sample.img.url }}" alt="work-img" class="img-fluid full-width">
+						<div class="px-item-content">
+							<div class="px-main-content">
+								<div class="icon"><a href="{{ work_sample.url }}"><i class="fas fa-eye"></i></a>
+								</div>
+								<h4>{{ work_sample.title }}</h4>
+								<h6 class="fs-16 mb-0">{{ work_sample.description }}</h6>
 							</div>
-							<h4>وب سایت</h4>
-							<h6 class="fs-16 mb-0">مشاور املاک</h6>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="px-work-item-wrapper">
-				<div class="px-work-item">
-					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-					<div class="px-item-content">
-						<div class="px-main-content">
-							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-							</div>
-							<h4>طراحی جلد</h4>
-							<h6 class="fs-16 mb-0">انتشار کتاب</h6>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="px-work-item-wrapper">
-				<div class="px-work-item">
-					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-					<div class="px-item-content">
-						<div class="px-main-content">
-							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-							</div>
-							<h4>طراحی پوستر</h4>
-							<h6 class="fs-16 mb-0">پوسترهای NY</h6>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="px-work-item-wrapper">
-				<div class="px-work-item">
-					<img src="https://via.placeholder.com/258x157" alt="work-img" class="img-fluid full-width">
-					<div class="px-item-content">
-						<div class="px-main-content">
-							<div class="icon"><a href="/portfolio-details/"><i class="fas fa-eye"></i></a>
-							</div>
-							<h4>طراحی محصول</h4>
-							<h6 class="fs-16 mb-0">کیسه های Acc</h6>
-						</div>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 		<div class="px-btn-block text-center pt-50">
 			<div class="px-slider-arrow">
@@ -542,39 +452,7 @@
 						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
 							<a href="#"><i class="fab fa-twitter"></i></a>
 							<a href="#"><i class="fab fa-instagram"></i></a>
-							<a href="#"><i class="fab fa-dribbble"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="single-team text-center mb-30">
-					<div class="team-thumb">
-						<img src="https://via.placeholder.com/280x291" alt="img">
-					</div>
-					<div class="team-info">
-						<h4>نام فامیل</h4>
-						<h6 class="fs-16">توسعه دهنده وب</h6>
-						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
-							<a href="#"><i class="fab fa-twitter"></i></a>
-							<a href="#"><i class="fab fa-instagram"></i></a>
-							<a href="#"><i class="fab fa-dribbble"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="single-team text-center mb-30">
-					<div class="team-thumb">
-						<img src="https://via.placeholder.com/280x291" alt="img">
-					</div>
-					<div class="team-info">
-						<h4>نام فامیل</h4>
-						<h6 class="fs-16">طراح وب</h6>
-						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
-							<a href="#"><i class="fab fa-twitter"></i></a>
-							<a href="#"><i class="fab fa-instagram"></i></a>
-							<a href="#"><i class="fab fa-dribbble"></i></a>
+							<a href="#"><i class="fab fa-telegram"></i></a>
 						</div>
 					</div>
 				</div>
