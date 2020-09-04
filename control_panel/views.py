@@ -11,6 +11,7 @@ from .models import (
 	video,
 	services,
 	work_samples,
+	our_team,
 	)
 def index(request):
 	if not request.user.is_staff:
@@ -507,7 +508,7 @@ def work_samples_(request):
 					}
 				messages.append(message)
 			if url!='':
-				work_samples.objects.change_work_sample_url(id,description)
+				work_samples.objects.change_work_sample_url(id,url)
 				message={
 					'type':'success',
 					'body':' Work Sample url Was Updated'
@@ -528,7 +529,81 @@ def our_team_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
-	return render(request,'control_panel/our-team.html',{'messages':messages})
+	if request.method=='POST':
+		if request.POST.get('Add-mem') is not None:
+			our_team.objects.create_team_member()
+		elif request.POST.get('remove-mem') is not None:
+			id=request.POST.get('remove-mem')
+			our_team.objects.remove_member(id)
+		elif request.POST.get('save') is not None:
+			id=request.POST.get('save')
+			img=request.FILES.get('img')
+			title=request.POST.get('title')
+			description=request.POST.get('description')
+			facebook=request.POST.get('facebook')
+			twitter=request.POST.get('twitter')
+			instagram=request.POST.get('instagram')
+			telegram=request.POST.get('telegram')
+			if img:
+				our_team.objects.change_team_member_img(id,img)
+				message={
+					'type':'success',
+					'body':' Work Sample Image Was Updated'
+					}
+				messages.append(message)
+			if title!='':
+				our_team.objects.change_team_member_title(id,title)
+				message={
+					'type':'success',
+					'body':'  Name Was Updated'
+					}
+				messages.append(message)
+			if description!='':
+				our_team.objects.change_team_member_description(id,
+																description)
+				message={
+					'type':'success',
+					'body':' Description Was Updated'
+					}
+				messages.append(message)
+			if facebook!='':
+				our_team.objects.change_team_member_facebook(id,facebook)
+				message={
+					'type':'success',
+					'body':' facebook Was Updated'
+					}
+				messages.append(message)
+			if twitter!='':
+				our_team.objects.change_team_member_twitter(id,twitter)
+				message={
+					'type':'success',
+					'body':' twitter Was Updated'
+					}
+				messages.append(message)
+			if instagram!='':
+				our_team.objects.change_team_member_instagram(id,instagram)
+				message={
+					'type':'success',
+					'body':' instagram Was Updated'
+					}
+				messages.append(message)
+			if telegram!='':
+				our_team.objects.change_team_member_telegram(id,telegram)
+				message={
+					'type':'success',
+					'body':' telegram Was Updated'
+					}
+				messages.append(message)
+			if len(messages)<1:
+				message={
+					'type':'info',
+					'body':' There Were No Changes To Save.'
+					}
+				messages.append(message)
+	return render(request,'control_panel/our-team.html',{
+		'messages':messages,
+		'our_team':our_team.objects.all()
+		})
 def our_customers_(request):
 	if not request.user.is_staff:
 		return redirect('/')

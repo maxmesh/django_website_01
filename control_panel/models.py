@@ -115,9 +115,9 @@ class slideshow(models.Model):
 	objects=slideshowManager()
 class videoManager(models.Manager):
 	def create_video(self):
-		slide=video.objects.create(video_title='title',
-								   video_description="video description")
-		return slide
+		_video=video.objects.create(video_title='title',
+									video_description="video description")
+		return _video
 	def change_cover_img(self,id,img):
 		_video=video.objects.filter(id=id).get()
 		if _video.cover_img.path.find(
@@ -339,45 +339,65 @@ class work_samples(models.Model):
 	url=models.URLField(blank=True)
 	objects=workSamplesManager()
 class ourTeamManager(models.Manager):
-	def create_video(self):
-		slide=self.create(video_title='title',
-						  video_description="video description")
-		return slide
-	def change_cover_img(self,id,img):
-		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find(
-				'\\default.png')==-1 and _video.cover_img.path.find(
+	def create_team_member(self):
+		mem=our_team.objects.create(title='title',
+									description="description")
+		return mem
+	def change_team_member_img(self,id,img):
+		mem=our_team.objects.filter(id=id).get()
+		if mem.img.path.find(
+				'\\default.png')==-1 and mem.img.path.find(
 			'/default.png')==-1:
-			if os.path.isfile(_video.cover_img.path):
-				os.remove(_video.cover_img.path)
-		_video.cover_img=img
-		_video.save()
-		return _video
-	def change_video_title(self,id,title):
-		_video=self.filter(id=id).get()
-		_video.video_title=title
-		_video.save()
-		return _video
-	def change_video_description(self,id,text):
-		_video=self.filter(id=id).get()
-		_video.video_description=text
-		_video.save()
-		return _video
-	def remove_video(self,id):
-		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find(
-				'\\default.png')==-1 and _video.cover_img.path.find(
+			if os.path.isfile(mem.img.path):
+				os.remove(mem.img.path)
+		mem.img=img
+		mem.save()
+		return mem
+	def change_team_member_title(self,id,title):
+		mem=our_team.objects.filter(id=id).get()
+		mem.title=title
+		mem.save()
+		return mem
+	def change_team_member_description(self,id,text):
+		mem=our_team.objects.filter(id=id).get()
+		mem.description=text
+		mem.save()
+		return mem
+	def change_team_member_facebook(self,id,url):
+		mem=our_team.objects.filter(id=id).get()
+		mem.facebook=url
+		mem.save()
+		return mem
+	def change_team_member_twitter(self,id,url):
+		mem=our_team.objects.filter(id=id).get()
+		mem.twitter=url
+		mem.save()
+		return mem
+	def change_team_member_instagram(self,id,url):
+		mem=our_team.objects.filter(id=id).get()
+		mem.instagram=url
+		mem.save()
+		return mem
+	def change_team_member_telegram(self,id,url):
+		mem=our_team.objects.filter(id=id).get()
+		mem.telegram=url
+		mem.save()
+		return mem
+	def remove_member(self,id):
+		mem=our_team.objects.filter(id=id).get()
+		if mem.img.path.find(
+				'\\default.png')==-1 and mem.img.path.find(
 			'/default.png')==-1:
-			if os.path.isfile(_video.cover_img.path):
-				os.remove(_video.cover_img.path)
-		_video.delete()
-		return _video
+			if os.path.isfile(mem.img.path):
+				os.remove(mem.img.path)
+		mem.delete()
+		return mem
 class our_team(models.Model):
-	img=models.ImageField(upload_to='services/img/',
-						  default='services/img/default/default.png',
+	img=models.ImageField(upload_to='our_team/img/',
+						  default='our_team/img/default/default.png',
 						  blank=True)
-	title=models.CharField(max_length=191)
-	description=models.TextField()
+	title=models.CharField(max_length=100)
+	description=models.CharField(max_length=100)
 	facebook=models.URLField(blank=True)
 	twitter=models.URLField(blank=True)
 	instagram=models.URLField(blank=True)

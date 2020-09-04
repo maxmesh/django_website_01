@@ -6,6 +6,7 @@ from control_panel.models import (
 	video,
 	services,
 	work_samples,
+	our_team,
 	)
 def about_us(request):
 	return render(request,'main/about-us.html',{'site_title':site_title.objects.all(),'page_name':'about_us'})
@@ -54,18 +55,31 @@ def index(request):
 					  'videos':videos,
 					  'services':services.objects.all(),
 					  'work_samples':work_samples.objects.all(),
+					  'our_team':our_team.objects.all(),
 					  'page_name':''
 					  })
 def our_services(request):
-	return render(request,'main/our-services.html',{'site_title':site_title.objects.all(),'page_name':'our_services'})
-def our_team(request):
-	return render(request,'main/our-team.html',{'site_title':site_title.objects.all(),'page_name':'our_team'})
+	return render(request,'main/our-services.html',{
+		'site_title':site_title.objects.all(),
+		'page_name':'our_services'
+		})
+def our_team_(request):
+	return render(request,'main/our-team.html',{
+		'site_title':site_title.objects.all(),
+		'page_name':'our_team'
+		})
 def portfolio_details(request):
 	return render(request,'main/portfolio-details.html',
-				  {'site_title':site_title.objects.all(),'page_name':'portfolio_details'})
+				  {
+					  'site_title':site_title.objects.all(),
+					  'page_name':'portfolio_details'
+					  })
 def portfolio_grid(request):
 	return render(request,'main/portfolio-grid.html',
-				  {'site_title':site_title.objects.all(),'page_name':'portfolio_grid'})
+				  {
+					  'site_title':site_title.objects.all(),
+					  'page_name':'portfolio_grid'
+					  })
 def portfolio_grid_gallery(request):
 	return render(request,'main/portfolio-grid-gallery.html',
 				  {'site_title':site_title.objects.all(),'page_name':'portfolio_grid_gallery'})

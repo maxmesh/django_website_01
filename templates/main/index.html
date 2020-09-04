@@ -441,22 +441,33 @@
 			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
 		</div>
 		<div class="row">
-			<div class="col-lg-4 col-md-6">
-				<div class="single-team text-center mb-30">
-					<div class="team-thumb">
-						<img src="https://via.placeholder.com/280x291" alt="img">
-					</div>
-					<div class="team-info">
-						<h4>نام فامیل</h4>
-						<h6 class="fs-16">طراح گرافیک</h6>
-						<div class="team-social mt-15"><a href="#"><i class="fab fa-facebook-f"></i></a>
-							<a href="#"><i class="fab fa-twitter"></i></a>
-							<a href="#"><i class="fab fa-instagram"></i></a>
-							<a href="#"><i class="fab fa-telegram"></i></a>
+			{% for team_mem in our_team %}
+				<div class="col-lg-4 col-md-6">
+					<div class="single-team text-center mb-30">
+						<div class="team-thumb">
+							<img src="{{ team_mem.img.url }}" alt="img">
+						</div>
+						<div class="team-info">
+							<h4>{{ team_mem.title }}</h4>
+							<h6 class="fs-16">{{ team_mem.description }}</h6>
+							<div class="team-social mt-15">
+								{% if team_mem.facebook != '' %}
+									<a href="{{ team_mem.facebook }}"><i class="fab fa-facebook-f"></i></a>
+								{% endif %}
+								{% if team_mem.facebook != '' %}
+									<a href="{{ team_mem.twitter }}"><i class="fab fa-twitter"></i></a>
+								{% endif %}
+								{% if team_mem.facebook != '' %}
+									<a href="{{ team_mem.instagram }}"><i class="fab fa-instagram"></i></a>
+								{% endif %}
+								{% if team_mem.facebook != '' %}
+									<a href="{{ team_mem.telegram }}"><i class="fab fa-telegram"></i></a>
+								{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </section>
