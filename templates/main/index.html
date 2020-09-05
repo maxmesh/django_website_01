@@ -45,18 +45,18 @@
 <header id="topnav" class="defaultscroll sticky active">
 	<div class="container">
 		<!-- Logo container-->
-		<div><a class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
+		<div><a style="float: right" class="logo" href="/"><span class="text-primary">.</span>آرم شما</a>
 		</div>
 		{% if user.is_authenticated %}
-			<div class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
+			<div style="float: left" class="buy-button"><a href="/logout/" class="px-btn px-btn-outline">خروج</a>
 			</div>
 		{% else %}
-			<div class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
+			<div style="float: left" class="buy-button"><a href="/login/" class="px-btn px-btn-outline">ورود</a>
 			</div>
 		{% endif %}
 		<!--end login button-->
 		<!-- End Logo container-->
-		<div class="menu-extras">
+		<div style="float: left" class="menu-extras">
 			<div class="menu-item">
 				<!-- Mobile menu toggle-->
 				<a class="navbar-toggle">
@@ -148,7 +148,7 @@
 		{% for slide in slideshow %}
 			<div class="item">
 				<div class="img-fill">
-					<img src="{{ slide.object.slide_img.url }}" alt="img" class="img-fluid">
+					<img src="{{ slide.object.slide_img.url }}" alt="img" class="img-fill">
 					<div class="info">
 						<div class="px-banner-center">
 							<h1 class="hero-heading">
