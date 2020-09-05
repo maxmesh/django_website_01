@@ -24,7 +24,7 @@
 	<!-- Slick Slider -->
 	<link href="{% static 'web_01/css/slick.css' %}" rel="stylesheet">
 	<!-- Custom Stylesheet -->
-	<link href="{% static 'web_01/css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'web_01/css/style-blue.css' %}" rel="stylesheet">
 	<!-- Custom Responsive -->
 	<link href="{% static 'web_01/css/responsive.css' %}" rel="stylesheet">
 	<!-- Google Fonts -->
@@ -485,84 +485,18 @@
 			<p><br/>ما متعهد هستیم ضمن ارائه بهترین آموزش ، به مشتریان خود خدمات استثنایی ارائه دهیم</p>
 		</div>
 		<div class="px-clients-slider">
-			<div class="px-testi-item">
-				<div class="px-testimonial-item">
-					<h4>نام فامیل</h4>
-					<span>توسعه دهنده</span>
-					<div class="icon">
-						<img src="https://via.placeholder.com/54" alt="">
+			{% for customer in customers %}
+				<div class="px-testi-item">
+					<div class="px-testimonial-item">
+						<h4>{{ customer.name }}</h4>
+						<span>{{ customer.job }}</span>
+						<div class="icon">
+							<img src="{{ customer.img.url }}" alt="">
+						</div>
+						<p class="hero-content">{{ customer.description }}</p>
 					</div>
-					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
 				</div>
-			</div>
-			<div class="px-testi-item">
-				<div class="px-testimonial-item">
-					<h4>نام فامیل</h4>
-					<span>مدیر عامل شرکت INC</span>
-					<div class="icon">
-						<img src="https://via.placeholder.com/54" alt="">
-					</div>
-					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-				</div>
-			</div>
-			<div class="px-testi-item">
-				<div class="px-testimonial-item">
-					<h4>نام فامیل</h4>
-					<span>بنیانگذار LLP</span>
-					<div class="icon">
-						<img src="https://via.placeholder.com/54" alt="">
-					</div>
-					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-				</div>
-			</div>
-			<div class="px-testi-item">
-				<div class="px-testimonial-item">
-					<h4>نام فامیل</h4>
-					<span>بنیانگذار LLP</span>
-					<div class="icon">
-						<img src="https://via.placeholder.com/54" alt="">
-					</div>
-					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-				</div>
-			</div>
-			<div class="px-testi-item">
-				<div class="px-testimonial-item">
-					<h4>نام فامیل</h4>
-					<span>بنیانگذار LLP</span>
-					<div class="icon">
-						<img src="https://via.placeholder.com/54" alt="">
-					</div>
-					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-				</div>
-			</div>
-			<div class="px-testi-item">
-				<div class="px-testimonial-item">
-					<h4>نام فامیل</h4>
-					<span>بنیانگذار LLP</span>
-					<div class="icon">
-						<img src="https://via.placeholder.com/54" alt="">
-					</div>
-					<p class="hero-content">این یک متن ساختگی می باشد .لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-											صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-											مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-											کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 </section>

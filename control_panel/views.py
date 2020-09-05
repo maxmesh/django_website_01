@@ -12,6 +12,7 @@ from .models import (
 	services,
 	work_samples,
 	our_team,
+	our_customers,
 	)
 def index(request):
 	if not request.user.is_staff:
@@ -372,7 +373,7 @@ def video_(request):
 			video.objects.create_video()
 		elif request.POST.get('remove-video') is not None:
 			id=request.POST.get('remove-video')
-			video.objects.remve_video(id)
+			video.objects.remove_video(id)
 		elif request.POST.get('save') is not None:
 			cover_img=request.FILES.get('cover-img')
 			video_title=request.POST.get('video-title')
@@ -608,9 +609,57 @@ def our_customers_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
+	if request.method=='POST':
+		if request.POST.get('Add-customer') is not None:
+			our_customers.objects.create_customer()
+		elif request.POST.get('remove-customer') is not None:
+			id=request.POST.get('remove-customer')
+			our_customers.objects.remove_customer(id)
+		elif request.POST.get('save') is not None:
+			id=request.POST.get('save')
+			img=request.FILES.get('img')
+			name=request.POST.get('name')
+			job=request.POST.get('job')
+			description=request.POST.get('description')
+			if img:
+				our_customers.objects.change_customer_img(id,img)
+				message={
+					'type':'success',
+					'body':' Image Was Updated'
+					}
+				messages.append(message)
+			if name!='':
+				our_customers.objects.change_customer_name(id,name)
+				message={
+					'type':'success',
+					'body':'  Name Was Updated'
+					}
+				messages.append(message)
+			if job!='':
+				our_customers.objects.change_customer_job(id,job)
+				message={
+					'type':'success',
+					'body':'  Job Was Updated'
+					}
+				messages.append(message)
+			if description!='':
+				our_customers.objects.change_customer_description(id,
+																  description)
+				message={
+					'type':'success',
+					'body':' Description Was Updated'
+					}
+				messages.append(message)
+			if len(messages)<1:
+				message={
+					'type':'info',
+					'body':' There Were No Changes To Save.'
+					}
+				messages.append(message)
 	return render(request,'control_panel/our-customers.html',
 				  {
-					  'messages':messages
+					  'messages':messages,
+					  'our_customers':our_customers.objects.all()
 					  })
 def footer_(request):
 	if not request.user.is_staff:

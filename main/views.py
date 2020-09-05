@@ -7,6 +7,7 @@ from control_panel.models import (
 	services,
 	work_samples,
 	our_team,
+	our_customers,
 	)
 def about_us(request):
 	return render(request,'main/about-us.html',{'site_title':site_title.objects.all(),'page_name':'about_us'})
@@ -56,6 +57,7 @@ def index(request):
 					  'services':services.objects.all(),
 					  'work_samples':work_samples.objects.all(),
 					  'our_team':our_team.objects.all(),
+					  'customers':our_customers.objects.all(),
 					  'page_name':''
 					  })
 def our_services(request):

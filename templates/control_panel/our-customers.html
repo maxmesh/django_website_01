@@ -213,21 +213,83 @@
 					</div>
 					{% elif message.type == "warning" %}
 					<!-- Warning Alert -->
-					<div class="alert alert-warning alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
+						<div class="alert alert-warning alert-dismissible fade show">
+							<strong>{{ message.strong }}</strong> {{ message.body }}
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>
 					{% elif message.type == "info" %}
 					<!-- Info Alert -->
-					<div class="alert alert-info alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
+						<div class="alert alert-info alert-dismissible fade show">
+							<strong>{{ message.strong }}</strong> {{ message.body }}
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>
 					{% endif %}
 				</div>
 				{% endfor %}
-				<!-- Page Heading -->
-				<h1 class="h3 mb-4 text-gray-800">Our Customers</h1>
+				<div class="card-deck mb-3">
+					<div class="form-row">
+						{% for customer in our_customers %}
+							<div class="mt-4 col-lg-6 col-lg-6">
+								<div class="card card-deck">
+									<img class="card-img" src="{{ customer.img.url }}"
+										 alt="Card image cap">
+									<div class="card-body">
+										<form method="POST" enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="input-group mb-5">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input"
+														   id="inputGroupFile01"
+														   aria-describedby="inputGroupFileAddon01"
+														   name="img">
+													<label class="custom-file-label"
+														   for="inputGroupFile01">Image</label>
+												</div>
+											</div>
+											<div class="form-row">
+												<div class="col">
+													<div class="form-group"><label><strong>Name</strong></label><input
+															class="form-control" type="text"
+															placeholder="{{ customer.name }}"
+															name="name">
+													</div>
+													<div class="form-group"><label><strong>Job</strong></label><input
+															class="form-control" type="text"
+															placeholder="{{ customer.job }}"
+															name="job">
+													</div>
+													<div class="form-group"><label><strong>Description</strong></label>
+														<textarea class="form-control" rows="5"
+																  placeholder="{{ customer.description }}"
+																  name="description"></textarea></div>
+												</div>
+											</div>
+											<button style="float: right;" class="btn btn-primary"
+													value="{{ customer.id }}" type="submit"
+													name="save">Save
+											</button>
+											<button class="btn btn-danger"
+													value="{{ customer.id }}" type="submit"
+													name="remove-customer">Remove
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						<div class="mt-4 col-lg-6 col-lg-6">
+							<div class="card">
+								<form method="POST">
+									{% csrf_token %}
+									<button type="submit" style="width:100%; height:100%"
+											class="btn btn-success"
+											name="Add-customer"><strong>+</strong>
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- /.container-fluid -->
 		</div>

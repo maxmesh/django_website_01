@@ -404,43 +404,58 @@ class our_team(models.Model):
 	telegram=models.URLField(blank=True)
 	objects=ourTeamManager()
 class ourCustomersManager(models.Manager):
-	def create_video(self):
-		slide=self.create(video_title='title',
-						  video_description="video description")
-		return slide
-	def change_cover_img(self,id,img):
-		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find(
-				'\\default.png')==-1 and _video.cover_img.path.find(
+	def create_customer(self):
+		customer=our_customers.objects.create(name='name',job='job',
+											  description='description')
+		return customer
+	def change_customer_img(self,id,img):
+		customer=our_customers.objects.filter(id=id).get()
+		if customer.img.path.find(
+				'\\default.png')==-1 and customer.img.path.find(
 			'/default.png')==-1:
-			if os.path.isfile(_video.cover_img.path):
-				os.remove(_video.cover_img.path)
-		_video.cover_img=img
-		_video.save()
-		return _video
-	def change_video_title(self,id,title):
-		_video=self.filter(id=id).get()
-		_video.video_title=title
-		_video.save()
-		return _video
-	def change_video_description(self,id,text):
-		_video=self.filter(id=id).get()
-		_video.video_description=text
-		_video.save()
-		return _video
-	def remove_video(self,id):
-		_video=self.filter(id=id).get()
-		if _video.cover_img.path.find(
-				'\\default.png')==-1 and _video.cover_img.path.find(
+			if os.path.isfile(customer.img.path):
+				os.remove(customer.img.path)
+		customer.img=img
+		customer.save()
+		return customer
+	def change_customer_name(self,id,name):
+		customer=our_customers.objects.filter(id=id).get()
+		customer.name=name
+		customer.save()
+		return customer
+	def change_customer_job(self,id,job):
+		customer=our_customers.objects.filter(id=id).get()
+		customer.job=job
+		customer.save()
+		return customer
+	def change_customer_description(self,id,text):
+		customer=self.filter(id=id).get()
+		customer.description=text
+		customer.save()
+		return customer
+	def remove_customer(self,id):
+		customer=our_customers.objects.filter(id=id).get()
+		if customer.img.path.find(
+				'\\default.png')==-1 and customer.img.path.find(
 			'/default.png')==-1:
-			if os.path.isfile(_video.cover_img.path):
-				os.remove(_video.cover_img.path)
-		_video.delete()
-		return _video
+			if os.path.isfile(customer.img.path):
+				os.remove(customer.img.path)
+		customer.delete()
+		return customer
 class our_customers(models.Model):
-	img=models.ImageField(upload_to='services/img/',
-						  default='services/img/default/default.png',
+	img=models.ImageField(upload_to='customers/img/',
+						  default='customers/img/default/default.png',
 						  blank=True)
-	title=models.CharField(max_length=191)
+	name=models.CharField(max_length=100,blank=True)
+	job=models.CharField(max_length=100,blank=True)
 	description=models.TextField()
-	objects=servicesManager()
+	objects=ourCustomersManager()
+class themeManager(models.Manager):
+	def change_theme(self,id,theme):
+		customer=site_theme.objects.filter(id=id).get()
+		customer.img=img
+		customer.save()
+		return customer
+class site_theme(models.Model):
+	theme=models.CharField(max_length=20)
+	objects=themeManager()
