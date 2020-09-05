@@ -451,11 +451,49 @@ class our_customers(models.Model):
 	description=models.TextField()
 	objects=ourCustomersManager()
 class themeManager(models.Manager):
-	def change_theme(self,id,theme):
-		customer=site_theme.objects.filter(id=id).get()
-		customer.img=img
-		customer.save()
-		return customer
+	def create_theme(self,color,color_ba):
+		theme_num=0
+		while os.path.isfile(
+				'static/web_01/css/style-theme'+str(theme_num)+'.css'):
+			theme_num+=1
+		theme=site_theme.objects.create(theme_name='-theme'+str(theme_num),
+										color=color,color_ba=color_ba)
+		style=open('static/web_01/css/style-base.css','r')
+		responsive=open('static/web_01/css/responsive-base.css','r')
+		code=style.read().replace('#69b8d1','#'+str(color))
+		code=code.replace('#a4bfd2','#'+str(color_ba))
+		code_r=responsive.read().replace('#69b8d1','#'+str(color))
+		style.close()
+		responsive.close()
+		style=open('static/web_01/css/style-theme'+str(theme_num)+'.css','w+')
+		responsive=open(
+			'static/web_01/css/responsive-theme'+str(theme_num)+'.css','w+')
+		style.write(code)
+		responsive.write(code_r)
+		style.close()
+		responsive.close()
+		return theme
+	def active_theme(self,id):
+		for obj in site_theme.objects.all():
+			obj=site_theme.objects.filter(id=obj.id).get()
+			obj.active=False
+			obj.save()
+		if int(id)!=-1:
+			theme=site_theme.objects.filter(id=id).get()
+			theme.active=True
+			theme.save()
+			return theme
+		return None
+	def remove_theme(self,id):
+		theme=site_theme.objects.filter(id=id).get()
+		if os.path.isfile(
+				'static/web_01/css/style'+str(theme.theme_name)+'.css'):
+			os.remove('static/web_01/css/style'+str(theme.theme_name)+'.css')
+		theme.delete()
+		return theme
 class site_theme(models.Model):
-	theme=models.CharField(max_length=20)
+	active=models.BooleanField(default=False)
+	theme_name=models.CharField(max_length=21)
+	color=models.CharField(max_length=6)
+	color_ba=models.CharField(max_length=6)
 	objects=themeManager()

@@ -13,6 +13,7 @@ from .models import (
 	work_samples,
 	our_team,
 	our_customers,
+	site_theme,
 	)
 def index(request):
 	if not request.user.is_staff:
@@ -675,7 +676,33 @@ def themes_(request):
 	if not request.user.is_staff:
 		return redirect('/')
 	messages=list()
-	return render(request,'control_panel/themes.html',{'messages':messages})
+	if request.method=='POST':
+		if request.POST.get('active') is not None:
+			id=request.POST.get('active')
+			site_theme.objects.active_theme(id)
+		elif request.POST.get('remove') is not None:
+			id=request.POST.get('remove')
+			site_theme.objects.remove_theme(id)
+		elif request.POST.get('add') is not None:
+			color=str(request.POST.get('color_m')).replace('#','')
+			color_ba=str(request.POST.get('color_ba')).replace('#','')
+			site_theme.objects.create_theme(color,color_ba)
+			message={
+				'type':'success',
+				'body':'  Theme Was Created.'
+				}
+			messages.append(message)
+	default=True
+	if len(site_theme.objects.all())!=0:
+		for obj in site_theme.objects.all():
+			if obj.active:
+				default=False
+				break
+	return render(request,'control_panel/themes.html',{
+		'messages':messages,
+		'themes':site_theme.objects.all(),
+		'default_theme':default
+		})
 def logout(request):
 	if not request.user.is_staff:
 		return redirect('/')

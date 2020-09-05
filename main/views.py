@@ -8,6 +8,7 @@ from control_panel.models import (
 	work_samples,
 	our_team,
 	our_customers,
+	site_theme,
 	)
 def about_us(request):
 	return render(request,'main/about-us.html',{'site_title':site_title.objects.all(),'page_name':'about_us'})
@@ -42,13 +43,24 @@ def index(request):
 			slideshow_array.append(slideshow_arr)
 		else:
 			title_parts=list()
-			title_part={'title':slide.slide_title,'span':''}
+			title_part={
+				'title':slide.slide_title,
+				'span':''
+				}
 			title_parts.append(title_part)
-			slideshow_arr={'object':slide,'title_parts':title_parts}
+			slideshow_arr={
+				'object':slide,
+				'title_parts':title_parts
+				}
 			slideshow_array.append(slideshow_arr)
 	videos=video.objects.all()
 	for _video in videos:
 		_video.video_description=_video.video_description.split('\n')
+	theme_name=''
+	for theme in site_theme.objects.all():
+		if theme.active:
+			theme_name=theme.theme_name
+			break
 	return render(request,'main/index.html',
 				  {
 					  'site_title':site_title.objects.all(),
@@ -58,6 +70,8 @@ def index(request):
 					  'work_samples':work_samples.objects.all(),
 					  'our_team':our_team.objects.all(),
 					  'customers':our_customers.objects.all(),
+					  'style':'web_01/css/style'+theme_name+'.css',
+					  'responsive':'web_01/css/responsive'+theme_name+'.css',
 					  'page_name':''
 					  })
 def our_services(request):

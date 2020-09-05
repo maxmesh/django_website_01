@@ -198,36 +198,125 @@
 			<div class="container-fluid">
 				<!-- Messages -->
 				{% for message in messages %}
-				<div class="container-fluid">
-					{% if message.type == "success" %}
-					<!-- Success Alert -->
-					<div class="alert alert-success alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<div class="container-fluid">
+						{% if message.type == "success" %}
+							<!-- Success Alert -->
+							<div class="alert alert-success alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% elif message.type == "error" %}
+							<!-- Error Alert -->
+							<div class="alert alert-danger alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% elif message.type == "warning" %}
+							<!-- Warning Alert -->
+							<div class="alert alert-warning alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% elif message.type == "info" %}
+							<!-- Info Alert -->
+							<div class="alert alert-info alert-dismissible fade show">
+								<strong>{{ message.strong }}</strong> {{ message.body }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% endif %}
 					</div>
-					{% elif message.type == "error" %}
-					<!-- Error Alert -->
-					<div class="alert alert-danger alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
-					{% elif message.type == "warning" %}
-					<!-- Warning Alert -->
-					<div class="alert alert-warning alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
-					{% elif message.type == "info" %}
-					<!-- Info Alert -->
-					<div class="alert alert-info alert-dismissible fade show">
-						<strong>{{ message.strong }}</strong> {{ message.body }}
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-					</div>
-					{% endif %}
-				</div>
 				{% endfor %}
 				<!-- Page Heading -->
-				<h1 class="h3 mb-4 text-gray-800">Themes</h1>
+				<div class="card-deck mb-3">
+					<div class="form-row">
+						<div class="mt-4 col-xl-auto col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="form-row">
+										<h3>Base Theme : </h3>
+									</div>
+								</div>
+								<div class="card-body">
+									<h5>Color : </h5>
+									<div style="background-color:#f9ba48;height: 100px"
+										 class="card card-img-top"></div>
+									<h5>Background Text Color : </h5>
+									<div style="background-color:#f6b94a;height: 100px"
+										 class="card card-img-top"></div>
+									<form method="POST">
+										{% csrf_token %}
+										<button class="mt-3 btn btn-outline-{% if default_theme %}success{% else %}primary{% endif %}"
+												type="submit" value="-1"
+												name="active"><a
+												class="fa fa-{% if default_theme %}check{% else %}level-up-alt{% endif %}"></a>
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						{% for theme in themes %}
+							<div class="mt-4 col-xl-auto col-lg-6">
+								<div class="card">
+									<div class="card-header">
+										<div class="form-row">
+											<h3>Theme {{ forloop.counter }} : </h3>
+											<div class="col">
+												<form method="POST">
+													{% csrf_token %}
+													<button style="float: right" class="btn btn-danger" type="submit"
+															value="{{ theme.id }}"
+															name="remove"><a class="fa fa-minus"></a></button>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<h5>Color : </h5>
+										<div style="background-color:#{{ theme.color }};height: 100px"
+											 class="card card-img-top"></div>
+										<h5>Background Text Color : </h5>
+										<div style="background-color:#{{ theme.color_ba }};height: 100px"
+											 class="card card-img-top"></div>
+										<form method="POST">
+											{% csrf_token %}
+											<button class="mt-3 btn btn-outline-{% if theme.active %}success{% else %}primary{% endif %} "
+													type="submit" value="{{ theme.id }}"
+													name="active"><a
+													class="fa fa-{% if theme.active %}check{% else %}level-up-alt{% endif %}"></a>
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						<div class="mt-4 col-xl-auto col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="form-row">
+										<h3>Create Theme : </h3>
+									</div>
+								</div>
+								<div class="card-body">
+									<form method="POST">
+										{% csrf_token %}
+										<h5 class="nowrap">Select Color:</h5>
+										<input class="rounded"
+											   style="width:100%; min-height: 100px; border-width: 0px; background-color: rgba(0,0,0,0)"
+											   type="color" id="favcolor" name="color_m" value="#f9ba48">
+										<h5 class="nowrap">Select Background Text Color:</h5>
+										<input class="rounded"
+											   style="width:100%; min-height: 100px; border-width: 0px; background-color: rgba(0,0,0,0)"
+											   type="color" id="favcolor" name="color_ba" value="#f9ba48">
+										<button type="submit" style="width:100%; height:100%"
+												class="btn btn-success"
+												name="add"><strong>+</strong>
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- /.container-fluid -->
 		</div>
